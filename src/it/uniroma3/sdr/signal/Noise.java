@@ -22,8 +22,7 @@ public class Noise {
 		this.randomGenerator = new Random();
 		
 		double linearSnr = Math.pow(10, (snr / 10));
-		double potNoise = 1/linearSnr;
-		this.standardDeviation = Math.sqrt(potNoise/2);
+		this.standardDeviation = Math.sqrt((1/linearSnr) / 2);
 		
 		this.samples.initialize(awgnGenerator);
 	}

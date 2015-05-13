@@ -1,14 +1,30 @@
 package it.uniroma3.sdr.signal;
 
+import java.util.Random;
+
 import it.uniroma3.sdr.math.ComplexCollection;
+import it.uniroma3.sdr.math.RealGenerator;
 
 public class Noise {
 
 	private ComplexCollection samples;
 	
-	private double variance;
+	private Random randomGenerator;
+	
+	private double standardDeviation;
+	
+	private RealGenerator awgnGenerator = () -> {
+		return randomGenerator.nextGaussian() * this.standardDeviation;
+	};
 	
 	public Noise(int length, double snr) {
 		this.samples = new ComplexCollection(length);
+		this.randomGenerator = new Random();
+		
+		double linearSnr = Math.pow(10, (snr / 10));
+		double potNoise = 1/linearSnr;
+		this.standardDeviation = Math.sqrt(potNoise/2);
+		
+		this.samples.initialize(awgnGenerator);
 	}
 }

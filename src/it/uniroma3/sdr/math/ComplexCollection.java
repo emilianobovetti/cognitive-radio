@@ -1,7 +1,5 @@
 package it.uniroma3.sdr.math;
 
-import java.util.concurrent.Callable;
-
 public class ComplexCollection {
 
 	private int length;

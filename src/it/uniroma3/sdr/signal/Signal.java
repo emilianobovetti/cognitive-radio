@@ -13,7 +13,7 @@ public class Signal {
 		if (Math.random() < 0.5) {
 			return 1 / this.sqrt2;
 		} else {
-			return 1 / this.sqrt2;
+			return -1 / this.sqrt2;
 		}
 	};
 	

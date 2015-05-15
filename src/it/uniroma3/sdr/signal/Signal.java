@@ -29,14 +29,9 @@ public abstract class Signal {
 		Pair<Integer, Double> result = this.stream()
 				.map(x -> new Pair<Integer, Double>(1, Math.pow(x.modulus(), 2)))
 				.reduce(new Pair<Integer, Double>(0, 0.0),
-						(a, b) -> new Pair<Integer, Double>(a.getFirst() + b.getFirst(), a.getSecond() + b.getSecond()));
+						(a, b) -> new Pair<Integer, Double>(a.first + b.first, a.second + b.second));
 		
-		this.energy = Optional.of(result.getSecond() / result.getFirst());
+		this.energy = Optional.of(result.second / result.first);
 		return this.energy.get();
-	}
-
-	// TODO for testing
-	public void print() {
-		this.stream().forEach((x) -> System.out.println(x));
 	}
 }

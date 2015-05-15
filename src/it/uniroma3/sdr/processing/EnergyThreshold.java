@@ -7,7 +7,7 @@ import org.apache.commons.math3.stat.descriptive.moment.Variance;
 import it.uniroma3.sdr.signal.Noise;
 import it.uniroma3.sdr.signal.Signal;
 
-public class ThresholdEnergy {
+public class EnergyThreshold {
 
 	private int testsNumber;
 	
@@ -15,13 +15,13 @@ public class ThresholdEnergy {
 	
 	private double probabilityFalseAlarm;
 	
-	public ThresholdEnergy(int testsNumber, int noiseLength, double probabilityFalseAlarm) {
+	public EnergyThreshold(int testsNumber, int noiseLength, double probabilityFalseAlarm) {
 		this.testsNumber = testsNumber;
 		this.noiseLength = noiseLength;
 		this.probabilityFalseAlarm = probabilityFalseAlarm;
 	}
 	
-	public double estimate(Signal signal) {
+	public double evaluate(Signal signal) {
 		Mean mean = new Mean();
 		Variance variance = new Variance();
 		

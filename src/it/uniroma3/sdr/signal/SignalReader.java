@@ -26,7 +26,7 @@ public class SignalReader {
 		return new ActualSignal(this.complexStream);
 	}
 	
-	public List<Signal> readSignals(int signalLength) {
+	public Stream<Signal> readSignals(int signalLength) {
 		Iterator<Complex> iterator = this.complexStream.iterator();
 		List<Signal> signals = new LinkedList<>();
 		Complex[] samples = new Complex[signalLength];
@@ -38,7 +38,9 @@ public class SignalReader {
 				index = 0;
 			}
 			samples[index] = iterator.next();
+			index++;
 		}
-		return signals;
+		signals.add(new ActualSignal(samples));
+		return signals.stream();
 	}
 }

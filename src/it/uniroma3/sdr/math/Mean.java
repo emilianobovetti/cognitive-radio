@@ -4,7 +4,7 @@ import java.util.stream.Stream;
 
 public class Mean {
 
-	public static double evaluate(Stream<Double> stream, int length) {
+	public static double evaluate(Stream<Double> stream) {
 		return stream.reduce(0.0, (a, b) -> a + b) / length;
 	}
 }

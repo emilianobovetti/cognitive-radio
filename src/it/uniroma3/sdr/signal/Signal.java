@@ -1,24 +1,27 @@
 package it.uniroma3.sdr.signal;
 
+import it.uniroma3.sdr.math.Complex;
 import it.uniroma3.sdr.math.ComplexCollection;
-import it.uniroma3.sdr.math.RealGenerator;
 
-public class Signal {
+import java.util.stream.Stream;
 
-	private ComplexCollection samples;
-
-	private double sqrt2 = Math.sqrt(2);
+public abstract class Signal {
 	
-	private RealGenerator randomGenerator = () -> {
-		if (Math.random() < 0.5) {
-			return 1 / this.sqrt2;
-		} else {
-			return -1 / this.sqrt2;
-		}
-	};
+	private ComplexCollection collection;
 	
-	public Signal(int length) {
-		this.samples = new ComplexCollection(length);
-		this.samples.initialize(this.randomGenerator);
+	public void initialize(ComplexCollection collection) {
+		this.collection = collection;
+	}
+	
+	public int length() {
+		return this.collection.length();
+	}
+	
+	public Stream<Complex> stream() {
+		return this.collection.stream();
+	}
+	
+	public double energy() {
+		return this.stream().map(x -> Math.pow(x.modulus(), 2)).reduce(0.0, (a, b) -> a + b) / this.length();
 	}
 }

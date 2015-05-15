@@ -1,4 +1,7 @@
-package it.uniroma3.sdr.math;
+package it.uniroma3.sdr.collection;
+
+import it.uniroma3.sdr.math.Complex;
+import it.uniroma3.sdr.math.ComplexGenerator;
 
 import java.util.stream.Stream;
 

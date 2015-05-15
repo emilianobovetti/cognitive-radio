@@ -1,7 +1,7 @@
 package it.uniroma3.sdr.signal;
 
+import it.uniroma3.sdr.collection.ComplexCollection;
 import it.uniroma3.sdr.math.Complex;
-import it.uniroma3.sdr.math.ComplexCollection;
 
 import java.util.stream.Stream;
 

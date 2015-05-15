@@ -12,11 +12,11 @@ public class Main {
 		String fileName = "output_1.dat";
 		
 		long start = System.currentTimeMillis();
-		ActualSignal s = SignalReader.readFromFile(filePath, fileName);
+		ActualSignal s = SignalReader.readSignalFromFile(filePath, fileName, 1000000);
 		//s.print();
 		//System.out.println(s.energy()); // 1.9992887026469504
 		ThresholdEnergy te = new ThresholdEnergy(1000, 1000, 0.001);
-		System.out.println(te.estimate(s)); // 1.3060404556477792
+		System.out.println(te.estimate(s)); // 1.3804277937152254
 		long end = System.currentTimeMillis();
 		double elapsed = (end - start) / 1000.0;
 		System.out.println(elapsed);

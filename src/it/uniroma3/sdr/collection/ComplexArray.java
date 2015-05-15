@@ -1,4 +1,6 @@
-package it.uniroma3.sdr.math;
+package it.uniroma3.sdr.collection;
+
+import it.uniroma3.sdr.math.Complex;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -9,6 +11,11 @@ public class ComplexArray implements ComplexCollection {
 	private int length;
 	
 	private Complex[] collection;
+	
+	public ComplexArray(int length, Complex[] collection) {
+		this.collection = collection;
+		this.length = length;
+	}
 	
 	public ComplexArray(int maxLength, Stream<Complex> stream) {
 		this.collection = new Complex[maxLength];

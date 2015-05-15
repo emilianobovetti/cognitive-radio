@@ -34,4 +34,8 @@ public abstract class Signal {
 		this.energy = Optional.of(result.getSecond() / result.getFirst());
 		return this.energy.get();
 	}
+
+	public void print() {
+		this.collection.stream().forEach((x) -> System.out.println(x));
+	}
 }

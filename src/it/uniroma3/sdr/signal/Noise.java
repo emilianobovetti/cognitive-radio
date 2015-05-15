@@ -26,10 +26,6 @@ public class Noise extends Signal {
 		double linearSnr = Math.pow(10, (snr / 10));
 		this.standardDeviation = Math.sqrt((1/linearSnr) / 2);
 		
-		this.initialize(new ComplexStream(length, awgnGenerator));
+		this.initialize(new ComplexStream(awgnGenerator, length));
 	}
-	
-//	public Stream<Complex> stream() {
-//		return super.stream().parallel();
-//	}
 }

@@ -6,19 +6,15 @@ import it.uniroma3.sdr.math.ComplexGenerator;
 import java.util.stream.Stream;
 
 public class ComplexStream implements ComplexCollection {
-
-	private int length;
 	
 	private Stream<Complex> stream;
 
-	public ComplexStream(int length, ComplexGenerator generator) {
-		this.length = length;
-		this.stream = Stream.iterate(generator.generate(), (x) -> generator.generate()).limit(this.length);
+	public ComplexStream(Stream<Complex> stream) {
+		this.stream = stream;
 	}
 	
-	@Override
-	public int length() {
-		return this.length;
+	public ComplexStream(ComplexGenerator generator, long maxSampleLength) {
+		this.stream = Stream.iterate(generator.generate(), (x) -> generator.generate()).limit(maxSampleLength);
 	}
 
 	@Override

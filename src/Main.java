@@ -12,7 +12,8 @@ public class Main {
 		String fileName = "output_1.dat";
 		
 		long start = System.currentTimeMillis();
-		ActualSignal s = SignalReader.readSignalFromFile(filePath, fileName, 1000000);
+		SignalReader reader = new SignalReader(filePath, fileName);
+		ActualSignal s = reader.readSignal(1000000);
 		//s.print();
 		//System.out.println(s.energy()); // 1.9992887026469504
 		ThresholdEnergy te = new ThresholdEnergy(1000, 1000, 0.001);

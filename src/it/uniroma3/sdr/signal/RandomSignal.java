@@ -21,6 +21,6 @@ public class RandomSignal extends Signal {
 	};
 	
 	public RandomSignal(int length) {
-		this.initialize(new ComplexStream(length, randomGenerator));
+		this.initialize(new ComplexStream(randomGenerator, length));
 	}
 }

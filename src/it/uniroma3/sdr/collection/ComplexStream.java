@@ -13,6 +13,10 @@ public class ComplexStream implements ComplexCollection {
 		this.stream = stream;
 	}
 	
+	public ComplexStream(Stream<Complex> stream, long maxSampleLength) {
+		this.stream = stream.limit(maxSampleLength);
+	}
+	
 	public ComplexStream(ComplexGenerator generator, long maxSampleLength) {
 		this.stream = Stream.iterate(generator.generate(), (x) -> generator.generate()).limit(maxSampleLength);
 	}

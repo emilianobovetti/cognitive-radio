@@ -13,7 +13,7 @@ public class Main {
 		
 		long start = System.currentTimeMillis();
 		SignalReader reader = new SignalReader(filePath, fileName);
-		ActualSignal s = reader.readSignal(1000000);
+		ActualSignal s = reader.readSignal();
 		//s.print();
 		//System.out.println(s.energy()); // 1.9992887026469504
 		ThresholdEnergy te = new ThresholdEnergy(1000, 1000, 0.001);

@@ -22,8 +22,8 @@ public class SignalReader {
 		this.fileStream = Files.lines(Paths.get(filePath, fileName));
 	}
 	
-	public ActualSignal readSignal(int maxSamplesNumber) {
-		return new ActualSignal(maxSamplesNumber, this.fileStream.map(lineParser));
+	public ActualSignal readSignal() {
+		return new ActualSignal(this.fileStream.map(lineParser));
 	}
 	
 	public static List<ActualSignal> readMultipleSignals(int signalLength) {

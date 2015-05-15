@@ -15,7 +15,7 @@ public class Noise extends Signal {
 	
 	private ComplexGenerator awgnGenerator = () -> {
 		RealGenerator r = () -> {
-			return randomGenerator.nextGaussian() * this.standardDeviation;
+			return this.randomGenerator.nextGaussian() * this.standardDeviation;
 		};
 		return new CartesianComplex(r.generate(), r.generate());
 	};

@@ -22,12 +22,10 @@ public class Main {
 //		System.out.println(te.estimate(s)); // 1.3804277937152254
 		
 		List<Signal> signals = reader.readSignals(1000);
-		for (Signal s : signals) {
-			s.print();
-		}
+		signals.stream().forEach((x) -> x.print());
 		
 		long end = System.currentTimeMillis();
 		double elapsed = (end - start) / 1000.0;
-		System.out.println(elapsed);
+		System.out.println("Elapsed = " + elapsed);
 	}
 }

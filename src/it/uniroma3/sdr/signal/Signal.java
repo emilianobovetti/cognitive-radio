@@ -35,7 +35,8 @@ public abstract class Signal {
 		return this.energy.get();
 	}
 
+	// TODO for testing
 	public void print() {
-		this.collection.stream().forEach((x) -> System.out.println(x));
+		this.stream().forEach((x) -> System.out.println(x));
 	}
 }

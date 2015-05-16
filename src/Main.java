@@ -26,7 +26,7 @@ public class Main {
 		
 		
 		/*
-		Stream<Signal> signals = reader.readSignals(1000);
+		List<Signal> signals = reader.readSignals(1000);
 		ThresholdTester tt = new ThresholdTester(1.3804277937152254);
 		System.out.println(tt.evaluateSignals(signals));
 		*/

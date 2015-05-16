@@ -1,10 +1,12 @@
 package it.uniroma3.sdr.math;
 
-import java.util.stream.Stream;
-
 public class Mean {
 
-	public static double evaluate(Stream<Double> stream) {
-		return stream.reduce(0.0, (a, b) -> a + b) / length;
+	public static double evaluate(Double[] array) {
+		double total = 0.0;
+		for (double d : array) {
+			total += d;
+		}
+		return total / array.length;
 	}
 }

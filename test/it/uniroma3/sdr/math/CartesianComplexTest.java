@@ -1,6 +1,8 @@
 package it.uniroma3.sdr.math;
 
 import static org.junit.Assert.*;
+import it.uniroma3.sdr.math.complex.CartesianComplex;
+import it.uniroma3.sdr.math.complex.Complex;
 
 import org.junit.Before;
 import org.junit.Test;

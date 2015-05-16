@@ -8,25 +8,27 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import it.uniroma3.sdr.math.CartesianComplex;
-import it.uniroma3.sdr.math.Complex;
+import it.uniroma3.sdr.math.complex.CartesianComplex;
+import it.uniroma3.sdr.math.complex.Complex;
 
 public class SignalReader {
 	
 	private Stream<Complex> complexStream;
 	
 	public SignalReader(String filePath, String fileName) throws IOException {
-		this.complexStream = Files.lines(Paths.get(filePath, fileName)).map((x) -> {
-			String[] split = x.split("\\t");
-			return new CartesianComplex(Double.parseDouble(split[0]), Double.parseDouble(split[1]));
-		});
+		this.complexStream = Files.lines(Paths.get(filePath, fileName))
+				.sequential()
+				.map((x) -> {
+					String[] split = x.split("\\t");
+					return new CartesianComplex(Double.parseDouble(split[0]), Double.parseDouble(split[1]));
+				});
 	}
 	
 	public Signal readSignal() {
 		return new ActualSignal(this.complexStream);
 	}
 	
-	public Stream<Signal> readSignals(int signalLength) {
+	public List<Signal> readSignals(int signalLength) {
 		Iterator<Complex> iterator = this.complexStream.iterator();
 		List<Signal> signals = new LinkedList<>();
 		Complex[] samples = new Complex[signalLength];
@@ -41,6 +43,6 @@ public class SignalReader {
 			index++;
 		}
 		signals.add(new ActualSignal(samples));
-		return signals.stream();
+		return signals;
 	}
 }

@@ -2,10 +2,10 @@ package it.uniroma3.sdr.signal;
 
 import java.util.Random;
 
-import it.uniroma3.sdr.collection.ComplexStream;
-import it.uniroma3.sdr.math.CartesianComplex;
-import it.uniroma3.sdr.math.ComplexGenerator;
+import it.uniroma3.sdr.collection.complex.ComplexStream;
 import it.uniroma3.sdr.math.RealGenerator;
+import it.uniroma3.sdr.math.complex.CartesianComplex;
+import it.uniroma3.sdr.math.complex.ComplexGenerator;
 
 public class Noise extends Signal {
 	

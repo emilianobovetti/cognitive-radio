@@ -2,9 +2,9 @@ package it.uniroma3.sdr.signal;
 
 import java.util.stream.Stream;
 
-import it.uniroma3.sdr.collection.ComplexArray;
-import it.uniroma3.sdr.collection.ComplexStream;
-import it.uniroma3.sdr.math.Complex;
+import it.uniroma3.sdr.collection.complex.ComplexArray;
+import it.uniroma3.sdr.collection.complex.ComplexStream;
+import it.uniroma3.sdr.math.complex.Complex;
 
 public class ActualSignal extends Signal {
 	

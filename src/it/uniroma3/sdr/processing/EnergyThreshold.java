@@ -1,9 +1,10 @@
 package it.uniroma3.sdr.processing;
 
-import org.apache.commons.math3.special.Erf;
-import org.apache.commons.math3.stat.descriptive.moment.Mean;
-import org.apache.commons.math3.stat.descriptive.moment.Variance;
+import java.util.stream.Stream;
 
+import it.uniroma3.sdr.math.ErfInv;
+import it.uniroma3.sdr.math.Mean;
+import it.uniroma3.sdr.math.Variance;
 import it.uniroma3.sdr.signal.Noise;
 import it.uniroma3.sdr.signal.Signal;
 
@@ -21,25 +22,21 @@ public class EnergyThreshold {
 		this.probabilityFalseAlarm = probabilityFalseAlarm;
 	}
 	
+	public double getSnr(Signal signal) {
+		return 1 / (1 - signal.energy());
+	}
+	
+	public Stream<Noise> noisesStream(Signal signal) {
+		double snr = this.getSnr(signal);
+		return Stream.iterate(new Noise(this.noiseLength, snr), (x) -> new Noise(this.noiseLength, snr));
+	}
+	
 	public double evaluate(Signal signal) {
-		Mean mean = new Mean();
-		Variance variance = new Variance();
+		Double[] noiseEnergies = this.noisesStream(signal)
+				.limit(this.testsNumber).map(x -> x.energy()).toArray(Double[]::new);
 		
-		double snr = 1 / (1 - signal.energy());
-		double[] noiseEnergies = new double[this.testsNumber];
-		for (int i = 0; i < this.testsNumber; i++) {
-			Noise noise = new Noise(this.noiseLength, snr);
-			noiseEnergies[i] = noise.energy();
-		}
-		
-//		Stream<Double> noiseEnergies = Stream.iterate(new Noise(this.noiseLength, snr), (x) -> new Noise(this.noiseLength, snr))
-//				.limit(this.testsNumber).map((x) -> x.energy());
-//		return Mean.evaluate(noiseEnergies, this.testsNumber) +
-//				Math.sqrt(2.0 * Variance.evaluate(noiseEnergies, this.testsNumber)) *
-//					ErfInv.evaluate(1.0 - 2.0 * this.probabilityFalseAlarm);
-		
-		return mean.evaluate(noiseEnergies, 0, noiseEnergies.length) +
-				Math.sqrt(2.0 * variance.evaluate(noiseEnergies)) *
-						Erf.erfInv(1.0 - 2.0 * this.probabilityFalseAlarm);
+		double mean = Mean.evaluate(noiseEnergies);
+		return mean + Math.sqrt(2.0 * Variance.evaluate(noiseEnergies, mean)) *
+					ErfInv.evaluate(1.0 - 2.0 * this.probabilityFalseAlarm);
 	}
 }

@@ -3,20 +3,20 @@ package it.uniroma3.sdr.collection.complex;
 import it.uniroma3.sdr.math.complex.Complex;
 import it.uniroma3.sdr.math.complex.ComplexGenerator;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.ArrayDeque;
+import java.util.Queue;
 import java.util.stream.Stream;
 
 public class DurableComplexStream implements ComplexCollection {
 
 	private Stream<Complex> stream;
 	
-	private List<Complex> list;
+	private Queue<Complex> queue;
 	
 	public DurableComplexStream(Stream<Complex> stream) {
-		this.list = new ArrayList<Complex>();
+		this.queue = new ArrayDeque<Complex>();
 		this.stream = stream.map(x -> {
-			this.list.add(x);
+			this.queue.add(x);
 			return x;
 		});
 	}
@@ -31,10 +31,10 @@ public class DurableComplexStream implements ComplexCollection {
 	
 	@Override
 	public Stream<Complex> stream() {
-		if (this.list.isEmpty()) {
+		if (this.queue.isEmpty()) {
 			return this.stream;
 		} else {
-			return this.list.stream();
+			return this.queue.stream();
 		}
 	}
 }

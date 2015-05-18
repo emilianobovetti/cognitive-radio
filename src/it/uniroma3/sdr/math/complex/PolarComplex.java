@@ -2,10 +2,16 @@ package it.uniroma3.sdr.math.complex;
 
 public class PolarComplex implements Complex {
 
-	private double modulus;		// r | rho
+	private double modulus;
 	
-	private double argument;	// phi | theta | phase | arg(z)
+	private double argument;
 	
+	/**
+	 * Costruisce un complesso in forma polare
+	 * 
+	 * @param modulus	Modulo 
+	 * @param argument	Argomento
+	 */
 	public PolarComplex(double modulus, double argument) {
 		this.modulus = modulus;
 		this.argument = argument;

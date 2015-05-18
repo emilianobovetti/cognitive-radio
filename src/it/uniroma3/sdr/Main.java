@@ -1,3 +1,4 @@
+package it.uniroma3.sdr;
 import it.uniroma3.sdr.processing.EnergyThreshold;
 import it.uniroma3.sdr.processing.ThresholdTester;
 import it.uniroma3.sdr.signal.DurableSignal;
@@ -5,6 +6,7 @@ import it.uniroma3.sdr.signal.Signal;
 import it.uniroma3.sdr.signal.GenericSignal;
 import it.uniroma3.sdr.signal.SignalReader;
 import it.uniroma3.sdr.signal.SignalUtil;
+import it.uniroma3.sdr.system.Settings;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,6 +17,9 @@ import java.util.stream.Stream;
 public class Main {
 	
 	public static void main(String[] args) throws IOException {
+		//Settings.readSettings();
+		//System.out.println(System.getProperty(""));
+		
 		String filePath = "/home/emiliano/Scrivania/Sequenze_SDR_2015/Sequenza_1/";
 		String fileName = "output_1.dat";
 		
@@ -43,5 +48,6 @@ public class Main {
 		long end = System.currentTimeMillis();
 		double elapsed = (end - start) / 1000.0;
 		System.out.println("Elapsed = " + elapsed);
+		
 	}
 }

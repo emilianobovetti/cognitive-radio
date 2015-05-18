@@ -7,14 +7,30 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 
+/**
+ * Fornisce strumenti utili per l'elaborazione di stream di complessi
+ * e di segnali.
+ * 
+ * @author emiliano
+ *
+ */
 public class SignalUtil {
 
 	private Stream<Complex> stream;
 	
+	/**
+	 * @param stream	Stream di complessi in ingresso
+	 */
 	public SignalUtil(Stream<Complex> stream) {
 		this.stream = stream;
 	}
 	
+	/**
+	 * Costruisce una lista di segnali di lunghezza determinata.
+	 * 
+	 * @param length	Lunghezza del segnale
+	 * @return	Lista di segnali
+	 */
 	public List<DurableSignal> split(int length) {
 		Iterator<Complex> iterator = this.stream.iterator();
 		List<DurableSignal> signals = new LinkedList<>();

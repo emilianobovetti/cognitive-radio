@@ -6,6 +6,12 @@ public class CartesianComplex implements Complex {
 	
 	private double imaginary;
 	
+	/**
+	 * Costruisce un complesso in forma cartesiana
+	 * 
+	 * @param real	Parte reale
+	 * @param imaginary	Parte immaginaria
+	 */
 	public CartesianComplex(double real, double imaginary) {
 		this.real = real;
 		this.imaginary = imaginary;

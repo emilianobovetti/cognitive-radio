@@ -9,17 +9,33 @@ import java.util.stream.Stream;
 import it.uniroma3.sdr.math.complex.CartesianComplex;
 import it.uniroma3.sdr.math.complex.Complex;
 
+/**
+ * Lettore di segnali da file.
+ * Il file in input deve essere formattato nel seguente modo:
+ * - Un campione su ogni linea
+ * - <Re>\t<Im>
+ * 
+ * @author emiliano
+ *
+ */
 public class SignalReader {
 	
 	private String filePath;
 	
 	private String fileName;
 	
+	/**
+	 * @param filePath	Percorso del file
+	 * @param fileName	Nome del file
+	 */
 	public SignalReader(String filePath, String fileName) {
 		this.filePath = filePath;
 		this.fileName = fileName;
 	}
 	
+	/**
+	 * @return	Il file di input sotto forma di stream di complessi
+	 */
 	private Stream<Complex> stream() {
 		try {
 			return Files.lines(Paths.get(this.filePath, this.fileName))
@@ -37,19 +53,42 @@ public class SignalReader {
 		}
 	}
 	
+	/**
+	 * @return	Segnale generico letto dal file di input
+	 */
 	public Signal readSignal() {
 		return new GenericSignal(this.stream());
 	}
 	
+	/**
+	 * @return	Segnale durevole letto dal file di input
+	 */
 	public DurableSignal readDurableSignal() {
 		return new DurableSignal(this.stream());
 	}
 	
+	/**
+	 * Restituisce una lista di segnali di lunghezza determinata
+	 * letti dal file di input
+	 * 
+	 * @param signalLength	Lunghezza dei segnali.
+	 * 	L'ultimo segnale viene costruito con i campioni rimanenti,
+	 * 	per cui e' probabile che abbia lunghezza minore
+	 * @return	Lista di segnali letti dal file di input
+	 */
 	public List<DurableSignal> readSignals(int signalLength) {
 		SignalUtil util = new SignalUtil(this.stream());
 		return util.split(signalLength);
 	}
 	
+	/**
+	 * Eccezione lanciata in caso di problemi derivanti dalla lettura da file.
+	 * Un eccezione di tipo SignalReaderExcetpion puo' essere dovuta
+	 * ad un problema di I/O o ad un problema di formattazione del file.
+	 * 
+	 * @author emiliano
+	 *
+	 */
 	private class SignalReaderExcetpion extends RuntimeException {
 		
 		private static final long serialVersionUID = 1775335840695452813L;

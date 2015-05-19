@@ -7,7 +7,7 @@ import it.uniroma3.sdr.collection.complex.DurableComplexStream;
 import it.uniroma3.sdr.math.complex.Complex;
 
 /**
- * Gestisce un segnale durevole.
+ * Gestisce un segnale i cui dati devono essere mantenuti in memoria.
  * 
  * Se viene inizializzato con uno stream, la prima volta che
  * i dati dello stream vengono processati, questi verranno
@@ -21,20 +21,20 @@ import it.uniroma3.sdr.math.complex.Complex;
  * @author emiliano
  *
  */
-public class DurableSignal extends GenericSignal {
+public class DurableSignal extends Signal {
 
 	/**
 	 * @param samples	I campioni del segnale
 	 */
 	public DurableSignal(Complex[] samples) {
-		super(new ComplexArray(samples));
+		this.initialize(new ComplexArray(samples));
 	}
 
 	/**
 	 * @param stream	Stream di dati del segnale
 	 */
 	public DurableSignal(Stream<Complex> stream) {
-		super(new DurableComplexStream(stream));
+		this.initialize(new DurableComplexStream(stream));
 	}
 	
 	/**
@@ -42,6 +42,6 @@ public class DurableSignal extends GenericSignal {
 	 * @param maxSampleLength	Numero massimo di campioni del segnale
 	 */
 	public DurableSignal(Stream<Complex> stream, long maxSampleLength) {
-		super(new DurableComplexStream(stream, maxSampleLength));
+		this.initialize(new DurableComplexStream(stream, maxSampleLength));
 	}
 }

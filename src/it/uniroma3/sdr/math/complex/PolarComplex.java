@@ -81,12 +81,14 @@ public class PolarComplex implements Complex {
 	}
 
 	public boolean equals(PolarComplex that) {
-		if (Double.doubleToLongBits(argument) != Double
-				.doubleToLongBits(that.argument))
+		if ( ! Complex.COMPARE.apply(this.modulus, that.modulus)) {
 			return false;
-		if (Double.doubleToLongBits(modulus) != Double
-				.doubleToLongBits(that.modulus))
+		}
+		
+		if ( ! Complex.COMPARE.apply(this.argument, that.argument)) {
 			return false;
+		}
+		
 		return true;
 	}
 	

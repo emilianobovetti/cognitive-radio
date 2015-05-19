@@ -1,6 +1,8 @@
 Energy Detection
 ================
 
+Il sistema fa uso di **Java 8**
+
 Compilazione
 ------------
 

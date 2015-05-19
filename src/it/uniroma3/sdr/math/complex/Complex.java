@@ -1,5 +1,7 @@
 package it.uniroma3.sdr.math.complex;
 
+import java.util.function.BiFunction;
+
 /**
  * Interfaccia per un numero complesso c.
  * 
@@ -11,6 +13,22 @@ package it.uniroma3.sdr.math.complex;
  */
 public interface Complex {
 
+	/**
+	 * Definisce una soglia di tolleranza per effettuare il confronto
+	 * tra i numeri in virgola mobile
+	 * 
+	 * Due numeri in virgola mobile nelle operazioni tra complessi vengono
+	 * definiti uguali se il modulo della loro differenza e' strettamente
+	 * minore a questa soglia
+	 */
+	static double TOLERANCE = 0.00001;
+	
+	/**
+	 * Definisce un metodo di confronto tra numeri in virgola mobile
+	 * tramite la soglia TOLERANCE.
+	 */
+	static BiFunction<Double, Double, Boolean> COMPARE = (a, b) -> Math.abs(a - b) < Complex.TOLERANCE;
+	
 	/**
 	 * @return	Modulo di c
 	 */

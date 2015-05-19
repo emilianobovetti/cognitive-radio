@@ -51,6 +51,11 @@ public class CartesianComplex implements Complex {
 	@Override
 	public CartesianComplex div(Complex c) {
 		CartesianComplex that = c.toCartesian();
+		
+		if (Complex.COMPARE.apply(that.real, 0.0) && Complex.COMPARE.apply(that.imaginary, 0.0)) {
+			throw new ArithmeticException("Division by 0");
+		}
+		
 		double denom = Math.pow(that.real, 2) + Math.pow(that.imaginary, 2);
 		return new CartesianComplex(
 				(this.real * that.real + this.imaginary + that.imaginary) / denom,
@@ -60,15 +65,16 @@ public class CartesianComplex implements Complex {
 	
 	@Override
 	public PolarComplex toPolar() {
+		if (Complex.COMPARE.apply(this.real, 0.0)) {
+			return new PolarComplex(this.imaginary, Math.PI / 2);
+		}
+		
 		double argument = Math.atan(this.imaginary / this.real);
 		if (this.real < 0) {
 			argument += Math.PI;
 		}
 		
-		return new PolarComplex(
-				this.modulus(),
-				argument
-		);
+		return new PolarComplex(this.modulus(), argument);
 	}
 	
 	@Override
@@ -89,12 +95,14 @@ public class CartesianComplex implements Complex {
 	}
 
 	public boolean equals(CartesianComplex that) {
-		if (Double.doubleToLongBits(imaginary) != Double
-				.doubleToLongBits(that.imaginary))
+		if ( ! Complex.COMPARE.apply(this.real, that.real)) {
 			return false;
-		if (Double.doubleToLongBits(real) != Double
-				.doubleToLongBits(that.real))
+		}
+		
+		if ( ! Complex.COMPARE.apply(this.imaginary, that.imaginary)) {
 			return false;
+		}
+		
 		return true;
 	}
 	

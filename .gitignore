@@ -1,3 +1,4 @@
+# Binaries #
 bin
 obj
 *.class
@@ -7,3 +8,7 @@ obj
 *.war
 *.ear
 
+# Eclipse configuration #
+.settings
+.classpath
+.project

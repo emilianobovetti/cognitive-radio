@@ -24,4 +24,4 @@ Esecuzione
 
 	make run
 	
-che eseguirà prima la compilazione e dopo eseguirà il programma.
+che eseguirà prima la compilazione e dopo il programma.

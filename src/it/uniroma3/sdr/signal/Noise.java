@@ -38,8 +38,8 @@ public class Noise extends Signal {
 	public Noise(int length, double snr) {
 		this.randomGenerator = new Random();
 		
-		double linearSnr = Math.pow(10, (snr / 10));
-		this.standardDeviation = Math.sqrt((1/linearSnr) / 2);
+		//double linearSnr = Math.pow(10, (snr / 10)); // TODO!
+		this.standardDeviation = Math.sqrt((1 / snr) / 2);
 		
 		this.initialize(new ComplexStream(awgnGenerator, length));
 	}

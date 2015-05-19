@@ -34,7 +34,14 @@ public class NoiseGenerator {
 	 * 	L'energia del segnale utile viene considerata unitaria
 	 */
 	public double snr() {
-		return 1 / (1 - this.signalEnergy);
+		return 1 / (this.signalEnergy - 1);
+	}
+	
+	/**
+	 * @return Stima del rapporto segnale-rumore in decibel
+	 */
+	public double snrDb() {
+		return 10 * Math.log10(this.snr());
 	}
 	
 	/**

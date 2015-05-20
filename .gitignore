@@ -1,6 +1,7 @@
 # Binaries #
 bin
 obj
+out
 *.class
 
 # Package Files #
@@ -8,7 +9,9 @@ obj
 *.war
 *.ear
 
-# Eclipse configuration #
+# IDE configuration #
 .settings
 .classpath
 .project
+.idea
+cognitive-radio.iml

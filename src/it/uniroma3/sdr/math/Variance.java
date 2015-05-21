@@ -1,5 +1,11 @@
 package it.uniroma3.sdr.math;
 
+import it.uniroma3.sdr.collection.Pair;
+
+import java.util.DoubleSummaryStatistics;
+import java.util.Optional;
+import java.util.stream.Stream;
+
 /**
  * Classe per il calcolo della varianza.
  * 
@@ -39,5 +45,15 @@ public class Variance {
 		}
 
 		return var / count;
+	}
+
+	public static double evaluate(Stream<Double> stream, double mean) {
+		// result.first = length
+		Optional<Pair<Integer, Double>> result = stream
+				.map(x -> new Pair<>(1, Math.pow(x - mean, 2)))
+				.reduce((a, b) -> new Pair<>(a.first + b.first, a.second + b.second));
+
+		result.orElseThrow(() -> new IllegalArgumentException("Variance does not exist on empty set"));
+		return result.get().second / result.get().first;
 	}
 }

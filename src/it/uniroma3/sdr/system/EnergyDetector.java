@@ -53,17 +53,25 @@ public class EnergyDetector {
 		String[] signals = Settings.getArrayProperty("signal.files.name");
 		
 		for (String s : signals) {
-			System.out.println("Processing signal '" + s + "'");
+			this.log("Processing signal '" + s + "'");
 			
 			this.findThreshold(s);
 			
-			System.out.println("Signal energy = " + this.currentSignal.energy());
-			System.out.println("Threshold = " + this.currentThreshold);
+			this.log("Signal energy = " + this.currentSignal.energy());
+			this.log("Threshold = " + this.currentThreshold);
 			
 			this.testThreshold();
 			
-			System.out.println("Detection Percentage = " + this.detectionPercentage + "\r\n");
+			this.log("Detection Percentage = " + this.detectionPercentage);
+			this.log("");
 		}
+	}
+
+	/**
+	 * @param s	Stringa da loggare
+	 */
+	public void log(String s) {
+		System.out.println(s);
 	}
 	
 	/**
@@ -75,7 +83,7 @@ public class EnergyDetector {
 	public void findThreshold(String signalFileName) {
 		SignalReader reader = new SignalReader(this.signalsDirectory, signalFileName);
 		this.currentSignal = reader.readDurableSignal();
-		
+
 		ThresholdDetector detector = new ThresholdDetector(this.noiseTestNumber, this.noiseSampleLength, this.pfa);
 		this.currentThreshold = detector.evaluate(this.currentSignal);
 	}

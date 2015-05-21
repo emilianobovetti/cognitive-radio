@@ -12,6 +12,6 @@ public class ErfInvTest {
 
     @Test
     public void evaluateTest() throws Exception {
-        assertEquals(0.2253, ErfInv.evaluate(0.25), 0.00001);
+        assertEquals(0.2253, ErfInv.evaluate(0.25), 0.0001);
     }
 }

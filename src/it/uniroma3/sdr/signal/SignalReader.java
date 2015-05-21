@@ -45,9 +45,9 @@ public class SignalReader {
 						return new CartesianComplex(Double.parseDouble(split[0]), Double.parseDouble(split[1]));
 					});
 		} catch (NumberFormatException e) {
-			throw new SignalReaderExcetpion("Unable to parse numbers in " + this.filePath + this.fileName, e);
+			throw new SignalReaderException("Unable to parse numbers in " + this.filePath + this.fileName, e);
 		} catch (IOException e) {
-			throw new SignalReaderExcetpion("Error occurred while reading " + this.filePath + this.fileName, e);
+			throw new SignalReaderException("Error occurred while reading " + this.filePath + this.fileName, e);
 		}
 	}
 	
@@ -81,17 +81,17 @@ public class SignalReader {
 	
 	/**
 	 * Eccezione lanciata in caso di problemi derivanti dalla lettura da file.
-	 * Un eccezione di tipo SignalReaderExcetpion puo' essere dovuta
+	 * Un eccezione di tipo SignalReaderException puo' essere dovuta
 	 * ad un problema di I/O o ad un problema di formattazione del file.
 	 * 
 	 * @author emiliano
 	 *
 	 */
-	private class SignalReaderExcetpion extends RuntimeException {
+	private class SignalReaderException extends RuntimeException {
 		
 		private static final long serialVersionUID = 1775335840695452813L;
 		
-		public SignalReaderExcetpion(String msg, Throwable cause) {
+		public SignalReaderException(String msg, Throwable cause) {
 			super(msg, cause);
 		}
 	}

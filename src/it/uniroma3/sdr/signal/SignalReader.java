@@ -45,10 +45,8 @@ public class SignalReader {
 						return new CartesianComplex(Double.parseDouble(split[0]), Double.parseDouble(split[1]));
 					});
 		} catch (NumberFormatException e) {
-			// the string does not have the appropriate format // TODO correct full path
 			throw new SignalReaderExcetpion("Unable to parse numbers in " + this.filePath + this.fileName, e);
 		} catch (IOException e) {
-			// failed or interrupted I/O operations // TODO correct full path
 			throw new SignalReaderExcetpion("Error occurred while reading " + this.filePath + this.fileName, e);
 		}
 	}

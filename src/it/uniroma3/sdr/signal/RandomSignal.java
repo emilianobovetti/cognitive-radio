@@ -32,6 +32,6 @@ public class RandomSignal extends Signal {
 	 * @param length	Lunghezza del segnale da generare
 	 */
 	public RandomSignal(int length) {
-		this.initialize(new ComplexStream(randomGenerator, length));
+		super.initialize(new ComplexStream(randomGenerator, length));
 	}
 }

@@ -25,9 +25,7 @@ public class Noise extends Signal {
 	private double standardDeviation;
 	
 	private ComplexGenerator awgnGenerator = () -> {
-		RealGenerator r = () -> {
-			return this.randomGenerator.nextGaussian() * this.standardDeviation;
-		};
+		RealGenerator r = () -> this.randomGenerator.nextGaussian() * this.standardDeviation;
 		return new CartesianComplex(r.generate(), r.generate());
 	};
 	
@@ -41,6 +39,6 @@ public class Noise extends Signal {
 		//double linearSnr = Math.pow(10, (snr / 10)); // TODO!
 		this.standardDeviation = Math.sqrt((1 / snr) / 2);
 		
-		this.initialize(new ComplexStream(awgnGenerator, length));
+		super.initialize(new ComplexStream(awgnGenerator, length));
 	}
 }

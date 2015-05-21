@@ -27,14 +27,14 @@ public class DurableSignal extends Signal {
 	 * @param samples	I campioni del segnale
 	 */
 	public DurableSignal(Complex[] samples) {
-		this.initialize(new ComplexArray(samples));
+		super.initialize(new ComplexArray(samples));
 	}
 
 	/**
 	 * @param stream	Stream di dati del segnale
 	 */
 	public DurableSignal(Stream<Complex> stream) {
-		this.initialize(new DurableComplexStream(stream));
+		super.initialize(new DurableComplexStream(stream));
 	}
 	
 	/**
@@ -42,6 +42,6 @@ public class DurableSignal extends Signal {
 	 * @param maxSampleLength	Numero massimo di campioni del segnale
 	 */
 	public DurableSignal(Stream<Complex> stream, long maxSampleLength) {
-		this.initialize(new DurableComplexStream(stream, maxSampleLength));
+		super.initialize(new DurableComplexStream(stream, maxSampleLength));
 	}
 }

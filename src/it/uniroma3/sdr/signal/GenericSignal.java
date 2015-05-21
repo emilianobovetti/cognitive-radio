@@ -19,14 +19,14 @@ public class GenericSignal extends Signal {
 	 * @param collection	Campioni del segnale
 	 */
 	public GenericSignal(ComplexCollection collection) {
-		this.initialize(collection);
+		super.initialize(collection);
 	}
 	
 	/**
 	 * @param stream	Stream di campioni del segnale
 	 */
 	public GenericSignal(Stream<Complex> stream) {
-		this.initialize(new ComplexStream(stream));
+		super.initialize(new ComplexStream(stream));
 	}
 	
 	/**
@@ -34,6 +34,6 @@ public class GenericSignal extends Signal {
 	 * @param maxSampleLength	Numero massimo di campioni del segnale
 	 */
 	public GenericSignal(Stream<Complex> stream, long maxSampleLength) {
-		this.initialize(new ComplexStream(stream, maxSampleLength));
+		super.initialize(new ComplexStream(stream, maxSampleLength));
 	}
 }

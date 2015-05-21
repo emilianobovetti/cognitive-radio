@@ -42,8 +42,8 @@ public class ThresholdDetector {
 		NoiseGenerator generator = new NoiseGenerator(signal);
 		
 		Double[] noisesEnergy = generator.generateStream(this.noiseLength)
-				.limit(this.testsNumber).map(x -> x.energy()).toArray(Double[]::new);
-		
+				.limit(this.testsNumber).map(Signal::energy).toArray(Double[]::new);
+
 		double mean = Mean.evaluate(noisesEnergy);
 		return mean + Math.sqrt(2.0 * Variance.evaluate(noisesEnergy, mean)) *
 					ErfInv.evaluate(1.0 - 2.0 * this.probabilityFalseAlarm);

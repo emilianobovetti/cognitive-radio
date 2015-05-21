@@ -14,9 +14,18 @@ public class Mean {
 	 */
 	public static double evaluate(Double[] array) {
 		double total = 0.0;
-		for (double d : array) {
-			total += d;
+		int count = 0;
+		for (Double d : array) {
+			if (d != null) {
+				total += d;
+				count++;
+			}
 		}
-		return total / array.length;
+
+		if (count == 0) {
+			throw new IllegalArgumentException("Mean does not exists on empty set");
+		}
+
+		return total / count;
 	}
 }

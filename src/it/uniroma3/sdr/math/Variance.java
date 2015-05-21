@@ -26,9 +26,18 @@ public class Variance {
 	 */
 	public static double evaluate(Double[] array, double mean) {
 		double var = 0.0;
-		for (double d : array) {
-			var += Math.pow(d - mean, 2);
+		int count = 0;
+		for (Double d : array) {
+			if (d != null) {
+				var += Math.pow(d - mean, 2);
+				count++;
+			}
 		}
-		return var / array.length;
+
+		if (count == 0) {
+			throw new IllegalArgumentException("Variance does not exists on empty set");
+		}
+
+		return var / count;
 	}
 }

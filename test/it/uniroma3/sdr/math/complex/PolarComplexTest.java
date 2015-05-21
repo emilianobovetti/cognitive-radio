@@ -14,7 +14,7 @@ public class PolarComplexTest {
 	@Before
 	public void setUp() throws Exception {
 		zero = new PolarComplex(0, 0);
-		one = new PolarComplex(1, Math.PI / 2);
+		one = new PolarComplex(1, 0);
 	}
 
 	@Test
@@ -59,7 +59,6 @@ public class PolarComplexTest {
 	
 	@Test
 	public void zeroSubOneTest() {
-		System.out.println(zero.sub(one));
 		assertEquals(new CartesianComplex(-1, 0), zero.sub(one));
 	}
 	
@@ -136,6 +135,16 @@ public class PolarComplexTest {
 	@Test
 	public void oneEqualsZeroTest() {
 		assertFalse(one.equals(zero));
+	}
+
+	@Test
+	public void zeroToCartesianTest() {
+		assertEquals(new CartesianComplex(0, 0), zero.toCartesian());
+	}
+
+	@Test
+	public void oneToCartesianTest() {
+		assertEquals(new CartesianComplex(1, 0), one.toCartesian());
 	}
 }
 

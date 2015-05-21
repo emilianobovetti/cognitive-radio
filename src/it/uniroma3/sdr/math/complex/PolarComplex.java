@@ -49,6 +49,11 @@ public class PolarComplex implements Complex {
 	@Override
 	public PolarComplex div(Complex c) {
 		PolarComplex that = c.toPolar();
+
+		if (Complex.COMPARE.apply(that.modulus, 0.0)) {
+			throw new ArithmeticException("Division by 0");
+		}
+
 		return new PolarComplex(
 				this.modulus / that.modulus,
 				this.argument - that.argument
@@ -81,15 +86,8 @@ public class PolarComplex implements Complex {
 	}
 
 	public boolean equals(PolarComplex that) {
-		if ( ! Complex.COMPARE.apply(this.modulus, that.modulus)) {
-			return false;
-		}
-		
-		if ( ! Complex.COMPARE.apply(this.argument, that.argument)) {
-			return false;
-		}
-		
-		return true;
+		return Complex.COMPARE.apply(this.modulus, that.modulus) &&
+				Complex.COMPARE.apply(this.argument, that.argument);
 	}
 	
 	@Override

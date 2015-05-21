@@ -95,15 +95,8 @@ public class CartesianComplex implements Complex {
 	}
 
 	public boolean equals(CartesianComplex that) {
-		if ( ! Complex.COMPARE.apply(this.real, that.real)) {
-			return false;
-		}
-		
-		if ( ! Complex.COMPARE.apply(this.imaginary, that.imaginary)) {
-			return false;
-		}
-		
-		return true;
+		return Complex.COMPARE.apply(this.real, that.real) &&
+				Complex.COMPARE.apply(this.imaginary, that.imaginary);
 	}
 	
 	@Override

@@ -28,13 +28,13 @@ public class DurableComplexStream implements ComplexCollection {
 	private Stream<Complex> stream;
 	
 	private Queue<Complex> queue;
-	
+
 	/**
 	 * @param stream	Lo stream di complessi
 	 */
 	public DurableComplexStream(Stream<Complex> stream) {
-		this.queue = new ArrayDeque<Complex>();
-		
+		this.queue = new ArrayDeque<>();
+
 		this.stream = stream.map(x -> {
 			//Runnable r = () -> this.queue.add(x);	r.run();
 			this.queue.add(x);

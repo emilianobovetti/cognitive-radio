@@ -16,7 +16,7 @@ public class NoiseGenerator {
 	private double signalEnergy;
 	
 	/**
-	 * @param signalEnergy	Energia del segnale
+	 * @param signalEnergy	Energia del segnale immerso nel rumore
 	 */
 	public NoiseGenerator(double signalEnergy) {
 		this.signalEnergy = signalEnergy;

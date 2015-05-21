@@ -3,8 +3,7 @@ package it.uniroma3.sdr.collection.complex;
 import it.uniroma3.sdr.math.complex.Complex;
 import it.uniroma3.sdr.math.complex.ComplexGenerator;
 
-import java.util.ArrayDeque;
-import java.util.Queue;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -27,21 +26,21 @@ public class DurableComplexStream implements ComplexCollection {
 
 	private Stream<Complex> stream;
 	
-	private Queue<Complex> queue;
+	private Queue<Complex> collection;
 
 	/**
 	 * @param stream	Lo stream di complessi
 	 */
 	public DurableComplexStream(Stream<Complex> stream) {
-		this.queue = new ArrayDeque<>();
+		this.collection = new ArrayDeque<>();
 
 		this.stream = stream.map(x -> {
-			//Runnable r = () -> this.queue.add(x);	r.run();
-			this.queue.add(x);
+			//Runnable r = () -> this.collection.add(x);	r.run();
+			this.collection.add(x);
 			return x;
 		});
 	}
-	
+
 	/**
 	 * @param stream	Lo stream di complessi
 	 * @param maxLength	Lunghezza massima della collezione
@@ -65,10 +64,10 @@ public class DurableComplexStream implements ComplexCollection {
 	 */
 	@Override
 	public Stream<Complex> stream() {
-		if (this.queue.isEmpty()) {
+		if (this.collection.isEmpty()) {
 			return this.stream;
 		} else {
-			return this.queue.stream();
+			return this.collection.stream();
 		}
 	}
 }

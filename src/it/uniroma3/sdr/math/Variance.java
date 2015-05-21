@@ -35,7 +35,7 @@ public class Variance {
 		}
 
 		if (count == 0) {
-			throw new IllegalArgumentException("Variance does not exists on empty set");
+			throw new IllegalArgumentException("Variance does not exist on empty set");
 		}
 
 		return var / count;

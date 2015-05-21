@@ -16,24 +16,35 @@ import java.util.stream.Stream;
  */
 public abstract class Signal {
 	
-	private ComplexCollection collection;
+	private ComplexCollection collection = null;
 	
 	private Optional<Double> energy = Optional.empty();
 	
 	/**
 	 * Consente alle sotto classi di inizializzare i campioni
 	 * del segnale
+	 * Il segnale puo' essere inizializzato una sola volta
 	 * 
 	 * @param collection	Collezione di campioni del segnale
+	 * @throws SignalStateException	Se il segnale e' gia' stato inizializzato
 	 */
-	protected void initialize(ComplexCollection collection) {
+	public void initialize(ComplexCollection collection) {
+		if (this.collection != null) {
+			throw new SignalStateException("Signal has already been initialized");
+		}
+
 		this.collection = collection;
 	}
 	
 	/**
 	 * @return	Uno stream di campion del segnale
+	 * @throws SignalStateException	Se il segnale non e' stato inizializzato
 	 */
 	public Stream<Complex> stream() {
+		if (this.collection == null) {
+			throw new SignalStateException("Signal has not been initialized");
+		}
+
 		return this.collection.stream();
 	}
 	
@@ -48,12 +59,18 @@ public abstract class Signal {
 		if (this.energy.isPresent()) {
 			return this.energy.get();
 		}
-		
+
+		// Pair.first = stream length
+		// Pair.second = data
 		Pair<Integer, Double> result = this.stream()
-				.map(x -> new Pair<Integer, Double>(1, Math.pow(x.modulus(), 2)))
-				.reduce(new Pair<Integer, Double>(0, 0.0),
-						(a, b) -> new Pair<Integer, Double>(a.first + b.first, a.second + b.second));
-		
+				.map(x -> new Pair<>(1, Math.pow(x.modulus(), 2)))
+				.reduce(new Pair<>(0, 0.0),
+						(a, b) -> new Pair<>(a.first + b.first, a.second + b.second));
+
+		if (result.first == 0) {
+			throw new SignalStateException("Energy does not exist on empty signal");
+		}
+
 		this.energy = Optional.of(result.second / result.first);
 		return this.energy.get();
 	}

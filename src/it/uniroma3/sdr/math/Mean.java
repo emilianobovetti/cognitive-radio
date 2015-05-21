@@ -23,7 +23,7 @@ public class Mean {
 		}
 
 		if (count == 0) {
-			throw new IllegalArgumentException("Mean does not exists on empty set");
+			throw new IllegalArgumentException("Mean does not exist on empty set");
 		}
 
 		return total / count;

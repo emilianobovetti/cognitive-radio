@@ -31,10 +31,11 @@ public class ThresholdTester {
 	 * 	La soglia deve essere inferiore all'energia di un segnale
 	 */
 	public double evaluateOnSignals(Stream<Signal> signals) {
+		// Pair.first = stream length
 		Pair<Integer, Integer> result = signals
-				.map(x -> new Pair<Integer, Integer>(1, (this.threshold < x.energy()) ? 1 : 0))
-				.reduce(new Pair<Integer, Integer>(0, 0),
-						(a, b) -> new Pair<Integer, Integer>(a.first + b.first, a.second + b.second));
+				.map(x -> new Pair<>(1, (this.threshold < x.energy()) ? 1 : 0))
+				.reduce(new Pair<>(0, 0),
+						(a, b) -> new Pair<>(a.first + b.first, a.second + b.second));
 		
 		return (double) result.second / result.first;
 	}
@@ -69,12 +70,13 @@ public class ThresholdTester {
 	 */
 	public double evaluateOnNoises(Signal signal, int testsNumber, int noiseLength) {
 		NoiseGenerator generator = new NoiseGenerator(signal);
-		
+
+		// Pair.first = stream length TODO
 		Pair<Integer, Integer> result = generator.generateStream(noiseLength)
 				.limit(testsNumber)
-				.map(x -> new Pair<Integer, Integer>(1, (this.threshold > x.energy()) ? 1 : 0))
-				.reduce(new Pair<Integer, Integer>(0, 0),
-						(a, b) -> new Pair<Integer, Integer>(a.first + b.first, a.second + b.second));
+				.map(x -> new Pair<>(1, (this.threshold > x.energy()) ? 1 : 0))
+				.reduce(new Pair<>(0, 0),
+						(a, b) -> new Pair<>(a.first + b.first, a.second + b.second));
 		
 		return (double) result.second / result.first;
 	}

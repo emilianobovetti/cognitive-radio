@@ -15,7 +15,7 @@ import java.util.Properties;
 public class Settings {
 
 	private static String settingsFileName = "settings.conf";
-	
+
 	/**
 	 * Inizializza le proprieta' di sistema leggendo da settings.conf
 	 */
@@ -69,7 +69,7 @@ public class Settings {
 	 * Restituisce una proprieta' di sistema  espressa come una sequenza di
 	 * valori separati da virgola come un array di stringhe
 	 * 
-	 * @param property	Nome della proprieta' di sistema
+	 * @param key	Nome della proprieta' di sistema
 	 * @return	Array di stringhe
 	 */
 	public static String[] getArrayProperty(String key) {

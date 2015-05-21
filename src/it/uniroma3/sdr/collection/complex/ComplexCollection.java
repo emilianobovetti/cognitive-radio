@@ -16,5 +16,5 @@ import java.util.stream.Stream;
  */
 public interface ComplexCollection {
 	
-	public Stream<Complex> stream();
+	Stream<Complex> stream();
 }

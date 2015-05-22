@@ -1,6 +1,7 @@
 package it.uniroma3.sdr.collection;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Queue;
 import java.util.stream.Stream;
 
@@ -29,6 +30,7 @@ public class DurableStreamProxy<T> {
 	 *
 	 * @param stream	Stream in input
 	 */
+	// STABLE!
     public DurableStreamProxy(Stream<T> stream) {
         this.collection = new ArrayDeque<>();
 
@@ -38,6 +40,32 @@ public class DurableStreamProxy<T> {
 			return x;
 		});
     }
+
+	/*
+	// TESTING
+	private static final int BUFFER_LENGTH = 100;
+	private T[] buffer;
+	private int bufferIndex = 0;
+	public DurableStreamProxy(Stream<T> stream) {
+		this.collection = new ArrayDeque<>(1000);
+		this.buffer = (T[]) new Object[BUFFER_LENGTH];
+
+		Runnable emptyBuffer = () -> this.collection.addAll(Arrays.asList(this.buffer));
+
+		this.stream = stream.map(x -> {
+			this.buffer[this.bufferIndex] = x;
+			this.bufferIndex++;
+
+			if (this.bufferIndex >= BUFFER_LENGTH) {
+				emptyBuffer.run();
+				this.buffer = (T[]) new Object[BUFFER_LENGTH];
+				this.bufferIndex = 0;
+			}
+
+			return x;
+		});
+	}
+	*/
 
 	/**
 	 * @return	Stream<T>

@@ -42,7 +42,6 @@ public class ThresholdDetector {
 	 * 	all'energia di questo segnale verranno generati i rumori
 	 * @return	Stima dell'energia di soglia
 	 */
-	/*
 	// STABLE
 	public double evaluate(Signal signal) {
 		NoiseGenerator generator = new NoiseGenerator(signal);
@@ -54,8 +53,8 @@ public class ThresholdDetector {
 		return mean + Math.sqrt(2.0 * Variance.evaluate(noisesEnergy, mean)) *
 					ErfInv.evaluate(1.0 - 2.0 * this.probabilityFalseAlarm);
 	}
-	*/
 
+	/*
 	//TESTING
 	public double evaluate(Signal signal) {
 		NoiseGenerator generator = new NoiseGenerator(signal);
@@ -70,4 +69,5 @@ public class ThresholdDetector {
 		return mean + Math.sqrt(2.0 * Variance.evaluate(durableEnergies.stream(), mean)) *
 				ErfInv.evaluate(1.0 - 2.0 * this.probabilityFalseAlarm);
 	}
+	*/
 }

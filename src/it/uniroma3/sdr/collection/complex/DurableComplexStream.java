@@ -4,7 +4,6 @@ import it.uniroma3.sdr.collection.DurableStreamProxy;
 import it.uniroma3.sdr.math.complex.Complex;
 import it.uniroma3.sdr.math.complex.ComplexGenerator;
 
-import java.util.*;
 import java.util.stream.Stream;
 
 /**

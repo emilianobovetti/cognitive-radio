@@ -41,7 +41,7 @@ public class SignalReader {
 			return Files.lines(Paths.get(this.filePath, this.fileName))
 					.sequential()
 					.map((x) -> {
-						String[] split = x.split("\\t");
+						String[] split = x.split("\\s+");
 						return new CartesianComplex(Double.parseDouble(split[0]), Double.parseDouble(split[1]));
 					});
 		} catch (NumberFormatException e) {

@@ -83,7 +83,8 @@ public class EnergyDetector {
 	 */
 	public void findThreshold(String signalFileName) {
 		SignalReader reader = new SignalReader(this.signalsDirectory, signalFileName);
-		this.currentSignal = reader.readDurableSignal();
+		this.currentSignal = reader.readDurableSignal();	// i dati del segnale verrano riutilizzati
+															// nel metodo SignalUtil.split()
 
 		ThresholdDetector detector = new ThresholdDetector(this.noiseTestNumber, this.noiseSampleLength, this.pfa);
 		this.currentThreshold = detector.evaluate(this.currentSignal);

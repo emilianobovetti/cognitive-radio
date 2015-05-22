@@ -48,7 +48,7 @@ public class DurableComplexStream implements ComplexCollection {
 	 * @param maxLength	Lunghezza massima della collezione
 	 */
 	public DurableComplexStream(ComplexGenerator generator, long maxLength) {
-		this(Stream.iterate(generator.generate(), (x) -> generator.generate()).limit(maxLength));
+		this(Stream.generate(() -> generator.generate()).limit(maxLength));
 	}
 
 	public Stream<Complex> stream() {

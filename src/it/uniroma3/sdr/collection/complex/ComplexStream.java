@@ -42,7 +42,7 @@ public class ComplexStream implements ComplexCollection {
 	 * @param maxLength	Lunghezza massima della collezione
 	 */
 	public ComplexStream(ComplexGenerator generator, long maxLength) {
-		this.stream = Stream.iterate(generator.generate(), (x) -> generator.generate()).limit(maxLength);
+		this.stream = Stream.generate(() -> generator.generate()).limit(maxLength);
 	}
 
 	/**

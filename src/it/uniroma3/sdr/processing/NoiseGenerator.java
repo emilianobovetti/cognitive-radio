@@ -36,8 +36,6 @@ public class NoiseGenerator {
 	 * @return	Uno stream *infinito* di rumori
 	 */
 	public Stream<Noise> generateStream(int noiseLength) {
-		// TODO parallel stream ?
-		return Stream.iterate(this.generate(noiseLength), (x) -> this.generate(noiseLength))
-				.parallel();
+		return Stream.generate(() -> this.generate(noiseLength));
 	}
 }

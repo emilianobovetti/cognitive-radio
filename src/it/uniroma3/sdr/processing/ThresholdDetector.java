@@ -4,7 +4,10 @@ import it.uniroma3.sdr.collection.DurableStreamProxy;
 import it.uniroma3.sdr.math.ErfInv;
 import it.uniroma3.sdr.math.Mean;
 import it.uniroma3.sdr.math.Variance;
+import it.uniroma3.sdr.signal.Noise;
 import it.uniroma3.sdr.signal.Signal;
+
+import java.util.stream.Stream;
 
 /**
  * Classe per il calcolo dell'energia di soglia.
@@ -39,10 +42,11 @@ public class ThresholdDetector {
 	 * 	all'energia di questo segnale verranno generati i rumori
 	 * @return	Stima dell'energia di soglia
 	 */
+	/*
 	// STABLE
 	public double evaluate(Signal signal) {
 		NoiseGenerator generator = new NoiseGenerator(signal);
-		
+
 		Double[] noisesEnergy = generator.generateStream(this.noiseLength)
 				.limit(this.testsNumber).map(Signal::energy).toArray(Double[]::new);
 
@@ -50,20 +54,20 @@ public class ThresholdDetector {
 		return mean + Math.sqrt(2.0 * Variance.evaluate(noisesEnergy, mean)) *
 					ErfInv.evaluate(1.0 - 2.0 * this.probabilityFalseAlarm);
 	}
+	*/
 
-	/*
 	//TESTING
 	public double evaluate(Signal signal) {
 		NoiseGenerator generator = new NoiseGenerator(signal);
 
-		DurableStreamProxy<Double> noisesEnergy =
-				new DurableStreamProxy<>(generator.generateStream(this.noiseLength)
-					.limit(this.testsNumber)
-					.map(Signal::energy));
+		Stream<Double> noisesEnergy = generator.generateStream(this.noiseLength)
+				.limit(this.testsNumber)
+				.map(Signal::energy);
 
-		double mean = Mean.evaluate(noisesEnergy.stream());
-		return mean + Math.sqrt(2.0 * Variance.evaluate(noisesEnergy.stream(), mean)) *
+		DurableStreamProxy<Double> durableEnergies = new DurableStreamProxy<>(noisesEnergy);
+
+		double mean = Mean.evaluate(durableEnergies.stream());
+		return mean + Math.sqrt(2.0 * Variance.evaluate(durableEnergies.stream(), mean)) *
 				ErfInv.evaluate(1.0 - 2.0 * this.probabilityFalseAlarm);
 	}
-	*/
 }

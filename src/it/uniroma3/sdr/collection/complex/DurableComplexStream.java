@@ -1,5 +1,6 @@
 package it.uniroma3.sdr.collection.complex;
 
+import it.uniroma3.sdr.collection.DurableStreamProxy;
 import it.uniroma3.sdr.math.complex.Complex;
 import it.uniroma3.sdr.math.complex.ComplexGenerator;
 
@@ -24,21 +25,13 @@ import java.util.stream.Stream;
  */
 public class DurableComplexStream implements ComplexCollection {
 
-	private Stream<Complex> stream;
+	private DurableStreamProxy<Complex> collection;
 	
-	private Queue<Complex> collection;
-
 	/**
 	 * @param stream	Lo stream di complessi
 	 */
 	public DurableComplexStream(Stream<Complex> stream) {
-		this.collection = new ArrayDeque<>();
-
-		this.stream = stream.map(x -> {
-			//Runnable r = () -> this.collection.add(x);	r.run();
-			this.collection.add(x);
-			return x;
-		});
+		this.collection = new DurableStreamProxy<>(stream);
 	}
 
 	/**
@@ -58,16 +51,8 @@ public class DurableComplexStream implements ComplexCollection {
 	public DurableComplexStream(ComplexGenerator generator, long maxLength) {
 		this(Stream.iterate(generator.generate(), (x) -> generator.generate()).limit(maxLength));
 	}
-	
-	/**
-	 * @return	Lo stream di complessi
-	 */
-	@Override
+
 	public Stream<Complex> stream() {
-		if (this.collection.isEmpty()) {
-			return this.stream;
-		} else {
-			return this.collection.stream();
-		}
+		return this.collection.stream();
 	}
 }

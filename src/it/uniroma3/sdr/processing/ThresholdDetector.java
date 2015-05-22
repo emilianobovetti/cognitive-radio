@@ -1,5 +1,6 @@
 package it.uniroma3.sdr.processing;
 
+import it.uniroma3.sdr.collection.DurableStreamProxy;
 import it.uniroma3.sdr.math.ErfInv;
 import it.uniroma3.sdr.math.Mean;
 import it.uniroma3.sdr.math.Variance;
@@ -38,6 +39,7 @@ public class ThresholdDetector {
 	 * 	all'energia di questo segnale verranno generati i rumori
 	 * @return	Stima dell'energia di soglia
 	 */
+	// STABLE
 	public double evaluate(Signal signal) {
 		NoiseGenerator generator = new NoiseGenerator(signal);
 		
@@ -48,4 +50,20 @@ public class ThresholdDetector {
 		return mean + Math.sqrt(2.0 * Variance.evaluate(noisesEnergy, mean)) *
 					ErfInv.evaluate(1.0 - 2.0 * this.probabilityFalseAlarm);
 	}
+
+	/*
+	//TESTING
+	public double evaluate(Signal signal) {
+		NoiseGenerator generator = new NoiseGenerator(signal);
+
+		DurableStreamProxy<Double> noisesEnergy =
+				new DurableStreamProxy<>(generator.generateStream(this.noiseLength)
+					.limit(this.testsNumber)
+					.map(Signal::energy));
+
+		double mean = Mean.evaluate(noisesEnergy.stream());
+		return mean + Math.sqrt(2.0 * Variance.evaluate(noisesEnergy.stream(), mean)) *
+				ErfInv.evaluate(1.0 - 2.0 * this.probabilityFalseAlarm);
+	}
+	*/
 }

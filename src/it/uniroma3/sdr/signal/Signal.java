@@ -74,4 +74,20 @@ public abstract class Signal {
 		this.energy = Optional.of(result.second / result.first);
 		return this.energy.get();
 	}
+
+
+	/**
+	 * @return	Stima del rapporto segnale-rumore
+	 * 	L'energia del segnale utile viene considerata unitaria
+	 */
+	public double snr() {
+		return 1 / (this.energy() - 1);
+	}
+
+	/**
+	 * @return Stima del rapporto segnale-rumore in decibel
+	 */
+	public double snrDb() {
+		return 10 * Math.log10(this.snr());
+	}
 }

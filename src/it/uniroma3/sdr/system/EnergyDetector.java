@@ -32,8 +32,6 @@ public class EnergyDetector {
 	
 	private Signal currentSignal;
 
-	private double currentSnr;
-	
 	private double currentThreshold;
 	
 	private double detectionPercentage;
@@ -60,7 +58,7 @@ public class EnergyDetector {
 			this.findThreshold(s);
 			
 			this.log("Signal energy = " + String.format("%.12f", this.currentSignal.energy()));
-			this.log("Signal snr in db = " + String.format("%.12f", this.currentSnr));
+			this.log("Signal snr in db = " + String.format("%.12f", this.currentSignal.snrDb()));
 			this.log("Threshold = " + String.format("%.12f", this.currentThreshold));
 			
 			this.testThreshold();
@@ -89,7 +87,6 @@ public class EnergyDetector {
 
 		ThresholdDetector detector = new ThresholdDetector(this.noiseTestNumber, this.noiseSampleLength, this.pfa);
 		this.currentThreshold = detector.evaluate(this.currentSignal);
-		this.currentSnr = detector.snrDb();
 	}
 	
 	/**

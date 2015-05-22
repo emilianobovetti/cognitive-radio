@@ -13,43 +13,22 @@ import it.uniroma3.sdr.signal.Signal;
  */
 public class NoiseGenerator {
 
-	private double signalEnergy;
-	
+	private Signal signal;
+
 	/**
-	 * @param signalEnergy	Energia del segnale immerso nel rumore
-	 */
-	public NoiseGenerator(double signalEnergy) {
-		this.signalEnergy = signalEnergy;
-	}
-	
-	/**
-	 * @param signal	Segnale sul quale generare il rumore
+	 * @param signal	Segnale in ingresso sul quale generare il rumore
 	 */
 	public NoiseGenerator(Signal signal) {
-		this(signal.energy());
+		this.signal = signal;
 	}
-	
-	/**
-	 * @return	Stima del rapporto segnale-rumore
-	 * 	L'energia del segnale utile viene considerata unitaria
-	 */
-	public double snr() {
-		return 1 / (this.signalEnergy - 1);
-	}
-	
-	/**
-	 * @return Stima del rapporto segnale-rumore in decibel
-	 */
-	public double snrDb() {
-		return 10 * Math.log10(this.snr());
-	}
+
 	
 	/**
 	 * @param noiseLength	Lunghezza del rumore da generare
 	 * @return	Rumore generato con i parametri forniti.
 	 */
 	public Noise generate(int noiseLength) {
-		return new Noise(noiseLength, this.snr());
+		return new Noise(noiseLength, this.signal.snr());
 	}
 	
 	/**

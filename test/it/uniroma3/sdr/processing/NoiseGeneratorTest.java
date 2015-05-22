@@ -1,7 +1,10 @@
 package it.uniroma3.sdr.processing;
 
-import org.junit.Before;
+import it.uniroma3.sdr.math.complex.CartesianComplex;
+import it.uniroma3.sdr.signal.GenericSignal;
 import org.junit.Test;
+
+import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
 
@@ -11,12 +14,7 @@ import static org.junit.Assert.*;
 public class NoiseGeneratorTest {
 
     // Generatore di rumore con snr = 1
-    private NoiseGenerator noiseGenerator = new NoiseGenerator(2);
-
-    @Test
-    public void snrTest() {
-        assertEquals(1, noiseGenerator.snr(), 0);
-    }
+    private NoiseGenerator noiseGenerator = new NoiseGenerator(new GenericSignal(Stream.of(new CartesianComplex(1, 0))));
 
     @Test
     public void noiseLengthTest() {

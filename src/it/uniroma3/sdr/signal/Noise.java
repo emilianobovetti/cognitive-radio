@@ -1,11 +1,11 @@
 package it.uniroma3.sdr.signal;
 
 import java.util.Random;
+import java.util.function.Supplier;
 
 import it.uniroma3.sdr.collection.complex.ComplexStream;
-import it.uniroma3.sdr.math.RealGenerator;
 import it.uniroma3.sdr.math.complex.CartesianComplex;
-import it.uniroma3.sdr.math.complex.ComplexGenerator;
+import it.uniroma3.sdr.math.complex.Complex;
 
 /**
  * Gestisce un rumore generato in modo pseudo-casuale.
@@ -24,9 +24,9 @@ public class Noise extends Signal {
 	
 	private double standardDeviation;
 	
-	private ComplexGenerator awgnGenerator = () -> {
-		RealGenerator r = () -> this.randomGenerator.nextGaussian() * this.standardDeviation;
-		return new CartesianComplex(r.generate(), r.generate());
+	private Supplier<Complex> awgnGenerator = () -> {
+		Supplier<Double> r = () -> this.randomGenerator.nextGaussian() * this.standardDeviation;
+		return new CartesianComplex(r.get(), r.get());
 	};
 	
 	/**

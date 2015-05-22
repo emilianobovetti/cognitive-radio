@@ -1,8 +1,8 @@
 package it.uniroma3.sdr.collection.complex;
 
 import it.uniroma3.sdr.math.complex.Complex;
-import it.uniroma3.sdr.math.complex.ComplexGenerator;
 
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
@@ -41,8 +41,8 @@ public class ComplexStream implements ComplexCollection {
 	 * @param generator	Il generatore di numeri complessi
 	 * @param maxLength	Lunghezza massima della collezione
 	 */
-	public ComplexStream(ComplexGenerator generator, long maxLength) {
-		this.stream = Stream.generate(() -> generator.generate()).limit(maxLength);
+	public ComplexStream(Supplier<Complex> generator, long maxLength) {
+		this.stream = Stream.generate(generator).limit(maxLength);
 	}
 
 	/**

@@ -21,7 +21,9 @@ public class ThresholdDetector {
 	private int noiseLength;
 	
 	private double probabilityFalseAlarm;
-	
+
+	private NoiseGenerator noiseGenerator;
+
 	/**
 	 * @param testsNumber	Numero di rumori da generare per il calcolo
 	 * 	della soglia
@@ -33,7 +35,15 @@ public class ThresholdDetector {
 		this.noiseLength = noiseLength;
 		this.probabilityFalseAlarm = probabilityFalseAlarm;
 	}
-	
+
+	public double snr() {
+		return this.noiseGenerator.snr();
+	}
+
+	public double snrDb() {
+		return this.noiseGenerator.snrDb();
+	}
+
 	/**
 	 * @param signal	Segnale di partenza. In base
 	 * 	all'energia di questo segnale verranno generati i rumori
@@ -41,9 +51,9 @@ public class ThresholdDetector {
 	 */
 	// STABLE
 	public double evaluate(Signal signal) {
-		NoiseGenerator generator = new NoiseGenerator(signal);
+		this.noiseGenerator = new NoiseGenerator(signal);
 		
-		Double[] noisesEnergy = generator.generateStream(this.noiseLength)
+		Double[] noisesEnergy = this.noiseGenerator.generateStream(this.noiseLength)
 				.limit(this.testsNumber).map(Signal::energy).toArray(Double[]::new);
 
 		double mean = Mean.evaluate(noisesEnergy);

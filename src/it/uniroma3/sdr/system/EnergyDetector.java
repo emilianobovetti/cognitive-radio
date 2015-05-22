@@ -31,6 +31,8 @@ public class EnergyDetector {
 	private double pfa = Settings.getDoubleProperty("probability.false.alarm");
 	
 	private Signal currentSignal;
+
+	private double currentSnr;
 	
 	private double currentThreshold;
 	
@@ -57,12 +59,13 @@ public class EnergyDetector {
 			
 			this.findThreshold(s);
 			
-			this.log("Signal energy = " + this.currentSignal.energy());
-			this.log("Threshold = " + this.currentThreshold);
+			this.log("Signal energy = " + String.format("%.12f", this.currentSignal.energy()));
+			this.log("Signal snr in db = " + String.format("%.12f", this.currentSnr));
+			this.log("Threshold = " + String.format("%.12f", this.currentThreshold));
 			
 			this.testThreshold();
 			
-			this.log("Detection Percentage = " + this.detectionPercentage);
+			this.log("Detection Percentage = " + String.format("%.3f", this.detectionPercentage));
 			this.log("");
 		}
 	}
@@ -73,7 +76,7 @@ public class EnergyDetector {
 	public void log(String s) {
 		System.out.println(s);
 	}
-	
+
 	/**
 	 * Dato il nome di un file contenente i campioni di un segnale, calcola
 	 * l'energia di soglia
@@ -86,6 +89,7 @@ public class EnergyDetector {
 
 		ThresholdDetector detector = new ThresholdDetector(this.noiseTestNumber, this.noiseSampleLength, this.pfa);
 		this.currentThreshold = detector.evaluate(this.currentSignal);
+		this.currentSnr = detector.snrDb();
 	}
 	
 	/**

@@ -47,7 +47,7 @@ public class SignalReader {
 					.map(x -> {
 						double[] split = RealParser.parseMany(x, 2);
 						return new CartesianComplex(split[0], split[1]);
-						//String[] split = x.split("\t");
+						//String[] split = x.split("\t");	// don't use regexp!
 						//return new CartesianComplex(Double.parseDouble(split[0]), Double.parseDouble(split[1]));
 					});
 		} catch (NumberFormatException e) {

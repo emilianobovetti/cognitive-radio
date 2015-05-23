@@ -9,7 +9,8 @@ import java.util.Scanner;
 public class Main {
 	
 	public static void main(String[] args) {
-		benchmark(() -> EnergyDetector.getInstance().run());
+		EnergyDetector detector = EnergyDetector.getInstance();
+		benchmark(() -> detector.run());
 	}
 
 	public static void benchmark(Runnable r) {

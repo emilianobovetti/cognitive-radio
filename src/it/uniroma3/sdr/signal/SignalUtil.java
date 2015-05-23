@@ -2,10 +2,8 @@ package it.uniroma3.sdr.signal;
 
 import it.uniroma3.sdr.math.complex.Complex;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.stream.Stream;
 
 /**
@@ -32,37 +30,21 @@ public class SignalUtil {
 	 * @param length	Lunghezza del segnale
 	 * @return	Lista di segnali
 	 */
-	/*
-	public List<DurableSignal> split(int length) {
-		Iterator<Complex> iterator = this.stream.iterator();
-		List<DurableSignal> signals = new LinkedList<>();
-		Complex[] samples = new Complex[length];
-		int index = 0;
-		while (iterator.hasNext()) {
-			if (index >= length) {
-				signals.add(new DurableSignal(samples));
-				samples = new Complex[length];
-				index = 0;
-			}
-			samples[index] = iterator.next();
-			index++;
-		}
-		signals.add(new DurableSignal(samples));
-		return signals;
-	}
-	*/
+	private ArrayDeque<Complex> buffer;
 
-	public List<Signal> split(int length) {
-		List<Signal> signals = new LinkedList<>();
-		Stream<Complex> stream = this.stream;
-		while (true) {
-			signals.add(new GenericSignal(stream.limit(length)));
-			try {
-				stream = stream.skip(length);
-			} catch (IllegalStateException e) {
-				break;
+	public Collection<Signal> split(int length) {
+		Collection<Signal> signals = new ArrayList<>(1000);
+		this.buffer = new ArrayDeque<>(length);
+
+		this.stream.forEach(x -> {
+			if (this.buffer.size() >= length) {
+				signals.add(new DurableSignal(this.buffer));
+				this.buffer = new ArrayDeque<>(length);
+			} else {
+				this.buffer.add(x);
 			}
-		}
+		});
+
 		return signals;
 	}
 }

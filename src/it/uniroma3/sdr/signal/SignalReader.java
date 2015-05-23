@@ -3,12 +3,9 @@ package it.uniroma3.sdr.signal;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.Collection;
 import java.util.stream.Stream;
 
-import it.uniroma3.sdr.math.Real;
 import it.uniroma3.sdr.math.RealParser;
 import it.uniroma3.sdr.math.complex.CartesianComplex;
 import it.uniroma3.sdr.math.complex.Complex;
@@ -84,7 +81,7 @@ public class SignalReader {
 	 * 	per cui e' probabile che abbia lunghezza minore
 	 * @return	Lista di segnali letti dal file di input
 	 */
-	public List<Signal> readSignals(int signalLength) {
+	public Collection<Signal> readSignals(int signalLength) {
 		SignalUtil util = new SignalUtil(this.stream());
 		return util.split(signalLength);
 	}

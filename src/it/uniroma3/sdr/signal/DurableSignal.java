@@ -1,8 +1,10 @@
 package it.uniroma3.sdr.signal;
 
+import java.util.Collection;
 import java.util.stream.Stream;
 
 import it.uniroma3.sdr.collection.complex.ComplexArray;
+import it.uniroma3.sdr.collection.complex.GenericComplexCollection;
 import it.uniroma3.sdr.collection.complex.DurableComplexStream;
 import it.uniroma3.sdr.math.complex.Complex;
 
@@ -35,6 +37,10 @@ public class DurableSignal extends Signal {
 	 */
 	public DurableSignal(Stream<Complex> stream) {
 		super.initialize(new DurableComplexStream(stream));
+	}
+
+	public DurableSignal(Collection<Complex> collection) {
+		super.initialize(new GenericComplexCollection(collection));
 	}
 	
 	/**

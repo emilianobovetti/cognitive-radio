@@ -1,11 +1,9 @@
 package it.uniroma3.sdr.system;
 
-import java.util.List;
+import java.util.Collection;
 
-import it.uniroma3.sdr.Main;
 import it.uniroma3.sdr.processing.ThresholdDetector;
 import it.uniroma3.sdr.processing.ThresholdTester;
-import it.uniroma3.sdr.signal.DurableSignal;
 import it.uniroma3.sdr.signal.Signal;
 import it.uniroma3.sdr.signal.SignalReader;
 import it.uniroma3.sdr.signal.SignalUtil;
@@ -54,10 +52,10 @@ public class EnergyDetector {
 		String[] signals = Settings.getArrayProperty("signal.files.name");
 
 		// Main
-		//for (String s : signals) this.processSignal(s);
+		for (String s : signals) this.processSignal(s);
 
 		// benchmarking
-		this.processSignal(signals[0]);
+		//this.processSignal(signals[0]);
 	}
 
 	public void processSignal(String signalFileName) {
@@ -104,8 +102,8 @@ public class EnergyDetector {
 		ThresholdTester tester = new ThresholdTester(this.currentThreshold);
 		
 		SignalUtil util = new SignalUtil(this.currentSignal.stream());
-		List<Signal> signals = util.split(1000);
+		Collection<Signal> signals = util.split(1000);
 		
-		this.detectionPercentage = tester.evaluateOnSignals(signals);
+		this.detectionPercentage = tester.evaluateOnSignals(signals.stream());
 	}
 }

@@ -1,7 +1,6 @@
 package it.uniroma3.sdr.collection;
 
 import java.util.ArrayDeque;
-import java.util.Arrays;
 import java.util.Queue;
 import java.util.stream.Stream;
 

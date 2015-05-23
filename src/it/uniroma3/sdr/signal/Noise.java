@@ -5,7 +5,6 @@ import java.util.function.Supplier;
 
 import it.uniroma3.sdr.collection.complex.ComplexStream;
 import it.uniroma3.sdr.math.complex.CartesianComplex;
-import it.uniroma3.sdr.math.complex.Complex;
 
 /**
  * Gestisce un rumore generato in modo pseudo-casuale.
@@ -24,11 +23,6 @@ public class Noise extends Signal {
 	
 	private double standardDeviation;
 	
-	private Supplier<Complex> awgnGenerator = () -> {
-		Supplier<Double> r = () -> this.randomGenerator.nextGaussian() * this.standardDeviation;
-		return new CartesianComplex(r.get(), r.get());
-	};
-	
 	/**
 	 * @param length	Lunghezza del rumore
 	 * @param snr	Rapporto segnale-rumore
@@ -36,9 +30,11 @@ public class Noise extends Signal {
 	public Noise(int length, double snr) {
 		this.randomGenerator = new Random();
 		
-		//double linearSnr = Math.pow(10, (snr / 10)); // TODO!
 		this.standardDeviation = Math.sqrt((1 / snr) / 2);
 		
-		super.initialize(new ComplexStream(awgnGenerator, length));
+		super.initialize(new ComplexStream(() -> {
+			Supplier<Double> r = () -> this.randomGenerator.nextGaussian() * this.standardDeviation;
+			return new CartesianComplex(r.get(), r.get());
+		}, length));
 	}
 }

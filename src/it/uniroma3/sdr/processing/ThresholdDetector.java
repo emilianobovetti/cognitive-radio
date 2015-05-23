@@ -43,19 +43,15 @@ public class ThresholdDetector {
 	 * @return	Stima dell'energia di soglia
 	 */
 	// STABLE
-	/*
 	public double evaluate(Signal signal) {
-		NoiseGenerator generator = new NoiseGenerator(signal);
-
-		Double[] noisesEnergy = generator.generateStream(this.noiseLength)
-				.limit(this.testsNumber).map(Signal::energy).toArray(Double[]::new);
+		Double[] noisesEnergy = this.noisesEnergy(signal).toArray(Double[]::new);
 
 		double mean = Mean.evaluate(noisesEnergy);
 		return mean + Math.sqrt(2.0 * Variance.evaluate(noisesEnergy, mean)) *
 					ErfInv.evaluate(1.0 - 2.0 * this.probabilityFalseAlarm);
 	}
-	*/
 
+	/*
 	//TESTING
 	public double evaluate(Signal signal) {
 		Stream<Double> noisesEnergy = this.noisesEnergy(signal);
@@ -65,6 +61,7 @@ public class ThresholdDetector {
 		return mean + Math.sqrt(2.0 * Variance.evaluate(durableEnergies.stream(), mean)) *
 				ErfInv.evaluate(1.0 - 2.0 * this.probabilityFalseAlarm);
 	}
+	*/
 
 	private Stream<Double> noisesEnergy(Signal signal) {
 		return (new NoiseGenerator(signal)).generateStream(this.noiseLength)

@@ -1,6 +1,9 @@
 package it.uniroma3.sdr;
 
+import it.uniroma3.sdr.math.Real;
 import it.uniroma3.sdr.system.EnergyDetector;
+
+import java.util.Scanner;
 
 public class Main {
 	

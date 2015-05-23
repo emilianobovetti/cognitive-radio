@@ -1,5 +1,7 @@
 package it.uniroma3.sdr.math.complex;
 
+import it.uniroma3.sdr.math.Real;
+
 public class CartesianComplex implements Complex {
 
 	private double real;
@@ -19,9 +21,14 @@ public class CartesianComplex implements Complex {
 	
 	@Override
 	public double modulus() {
-		return Math.sqrt(Math.pow(this.real, 2) + Math.pow(this.imaginary, 2));
+		return Math.sqrt(this.modulus2());
 	}
-	
+
+	@Override
+	public double modulus2() {
+		return Math.pow(this.real, 2) + Math.pow(this.imaginary, 2);
+	}
+
 	@Override
 	public CartesianComplex conjugate() {
 		return new CartesianComplex(this.real, - this.imaginary);
@@ -51,8 +58,8 @@ public class CartesianComplex implements Complex {
 	@Override
 	public CartesianComplex div(Complex c) {
 		CartesianComplex that = c.toCartesian();
-		
-		if (Complex.COMPARE.apply(that.real, 0.0) && Complex.COMPARE.apply(that.imaginary, 0.0)) {
+
+		if (Real.isZero(that.real) && Real.isZero(that.imaginary)) {
 			throw new ArithmeticException("Division by 0");
 		}
 		
@@ -65,7 +72,7 @@ public class CartesianComplex implements Complex {
 	
 	@Override
 	public PolarComplex toPolar() {
-		if (Complex.COMPARE.apply(this.real, 0.0)) {
+		if (Real.isZero(this.real)) {
 			return new PolarComplex(this.imaginary, Math.PI / 2);
 		}
 		
@@ -95,8 +102,8 @@ public class CartesianComplex implements Complex {
 	}
 
 	public boolean equals(CartesianComplex that) {
-		return Complex.COMPARE.apply(this.real, that.real) &&
-				Complex.COMPARE.apply(this.imaginary, that.imaginary);
+		return Real.equals(this.real, that.real) &&
+				Real.equals(this.imaginary, that.imaginary);
 	}
 	
 	@Override

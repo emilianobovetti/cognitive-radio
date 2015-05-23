@@ -1,5 +1,7 @@
 package it.uniroma3.sdr.math.complex;
 
+import it.uniroma3.sdr.math.Real;
+
 public class PolarComplex implements Complex {
 
 	private double modulus;
@@ -21,7 +23,12 @@ public class PolarComplex implements Complex {
 	public double modulus() {
 		return this.modulus;
 	}
-	
+
+	@Override
+	public double modulus2() {
+		return Math.pow(this.modulus(), 2);
+	}
+
 	@Override
 	public PolarComplex conjugate() {
 		return new PolarComplex(this.modulus, - this.argument);
@@ -50,7 +57,7 @@ public class PolarComplex implements Complex {
 	public PolarComplex div(Complex c) {
 		PolarComplex that = c.toPolar();
 
-		if (Complex.COMPARE.apply(that.modulus, 0.0)) {
+		if (Real.equals(that.modulus, 0.0)) {
 			throw new ArithmeticException("Division by 0");
 		}
 
@@ -86,8 +93,8 @@ public class PolarComplex implements Complex {
 	}
 
 	public boolean equals(PolarComplex that) {
-		return Complex.COMPARE.apply(this.modulus, that.modulus) &&
-				Complex.COMPARE.apply(this.argument, that.argument);
+		return Real.equals(this.modulus, that.modulus) &&
+				Real.equals(this.argument, that.argument);
 	}
 	
 	@Override

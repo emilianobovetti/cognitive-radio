@@ -1,10 +1,14 @@
 package it.uniroma3.sdr.signal;
 
+import it.uniroma3.sdr.Main;
 import it.uniroma3.sdr.collection.Pair;
 import it.uniroma3.sdr.collection.complex.ComplexCollection;
 import it.uniroma3.sdr.math.complex.Complex;
 
+import java.util.Iterator;
 import java.util.Optional;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 /**
@@ -55,6 +59,24 @@ public abstract class Signal {
 	 * 
 	 * @return	L'energia del segnale
 	 */
+	/*
+	public double energy() {
+		if (this.energy.isPresent()) {
+			return this.energy.get();
+		}
+
+		int length = 0;
+		double sum = 0;
+		Iterator<Complex> iterator = this.stream().iterator();
+		while (iterator.hasNext()) {
+			length++;
+			sum += iterator.next().modulus2();
+		}
+
+		this.energy = Optional.of(sum / length);
+		return this.energy.get();
+	}
+	*/
 	public double energy() {
 		if (this.energy.isPresent()) {
 			return this.energy.get();
@@ -63,7 +85,7 @@ public abstract class Signal {
 		// Pair.first = stream length
 		// Pair.second = data
 		Pair<Integer, Double> result = this.stream()
-				.map(x -> new Pair<>(1, Math.pow(x.modulus(), 2)))
+				.map(x -> new Pair<>(1, x.modulus2()))
 				.reduce(new Pair<>(0, 0.0),
 						(a, b) -> new Pair<>(a.first + b.first, a.second + b.second));
 
@@ -74,7 +96,6 @@ public abstract class Signal {
 		this.energy = Optional.of(result.second / result.first);
 		return this.energy.get();
 	}
-
 
 	/**
 	 * @return	Stima del rapporto segnale-rumore

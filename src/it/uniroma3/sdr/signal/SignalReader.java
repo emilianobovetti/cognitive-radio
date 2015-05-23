@@ -4,8 +4,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
 import java.util.stream.Stream;
 
+import it.uniroma3.sdr.math.Real;
+import it.uniroma3.sdr.math.RealParser;
 import it.uniroma3.sdr.math.complex.CartesianComplex;
 import it.uniroma3.sdr.math.complex.Complex;
 
@@ -19,7 +23,7 @@ import it.uniroma3.sdr.math.complex.Complex;
  *
  */
 public class SignalReader {
-	
+
 	private String filePath;
 	
 	private String fileName;
@@ -38,11 +42,13 @@ public class SignalReader {
 	 */
 	private Stream<Complex> stream() {
 		try {
+			//return Files.newBufferedReader(Paths.get(this.filePath, this.fileName)).lines()
 			return Files.lines(Paths.get(this.filePath, this.fileName))
-					.sequential()
-					.map((x) -> {
-						String[] split = x.split("\\s+");
-						return new CartesianComplex(Double.parseDouble(split[0]), Double.parseDouble(split[1]));
+					.map(x -> {
+						double[] split = RealParser.parseMany(x, 2);
+						return new CartesianComplex(split[0], split[1]);
+						//String[] split = x.split("\t");
+						//return new CartesianComplex(Double.parseDouble(split[0]), Double.parseDouble(split[1]));
 					});
 		} catch (NumberFormatException e) {
 			throw new SignalReaderException("Unable to parse numbers in " + this.filePath + this.fileName, e);

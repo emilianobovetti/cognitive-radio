@@ -54,10 +54,10 @@ public class EnergyDetector {
 		String[] signals = Settings.getArrayProperty("signal.files.name");
 
 		// Main
-		//for (String s : signals) this.processSignal(s);
+		for (String s : signals) this.processSignal(s);
 
 		// benchmarking
-		this.processSignal(signals[0]);
+		//this.processSignal(signals[0]);
 	}
 
 	public void processSignal(String signalFileName) {

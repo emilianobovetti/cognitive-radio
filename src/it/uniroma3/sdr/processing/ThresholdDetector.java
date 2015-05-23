@@ -4,13 +4,8 @@ import it.uniroma3.sdr.collection.DurableStreamProxy;
 import it.uniroma3.sdr.math.ErfInv;
 import it.uniroma3.sdr.math.Mean;
 import it.uniroma3.sdr.math.Variance;
-import it.uniroma3.sdr.signal.Noise;
 import it.uniroma3.sdr.signal.Signal;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.stream.Stream;
 
 /**
@@ -46,7 +41,6 @@ public class ThresholdDetector {
 	 * 	all'energia di questo segnale verranno generati i rumori
 	 * @return	Stima dell'energia di soglia
 	 */
-	// STABLE
 	public double evaluate(Signal signal) {
 		Double[] noisesEnergy = this.noisesEnergy(signal)
 				.toArray(Double[]::new);

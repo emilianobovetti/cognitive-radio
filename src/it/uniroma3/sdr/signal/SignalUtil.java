@@ -3,7 +3,6 @@ package it.uniroma3.sdr.signal;
 import it.uniroma3.sdr.math.complex.Complex;
 
 import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.stream.Stream;
 
 /**
@@ -16,7 +15,9 @@ import java.util.stream.Stream;
 public class SignalUtil {
 
 	private Stream<Complex> stream;
-	
+
+	private ArrayDeque<Complex> buffer;
+
 	/**
 	 * @param stream	Stream di complessi in ingresso
 	 */
@@ -30,8 +31,6 @@ public class SignalUtil {
 	 * @param length	Lunghezza del segnale
 	 * @return	Lista di segnali
 	 */
-	private ArrayDeque<Complex> buffer;
-
 	public Collection<Signal> split(int length) {
 		Collection<Signal> signals = new ArrayList<>(1000);
 		this.buffer = new ArrayDeque<>(length);

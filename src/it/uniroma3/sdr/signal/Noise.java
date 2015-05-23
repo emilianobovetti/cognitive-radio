@@ -19,21 +19,17 @@ import it.uniroma3.sdr.math.complex.CartesianComplex;
  */
 public class Noise extends Signal {
 	
-	private Random randomGenerator;
-	
-	private double standardDeviation;
-	
 	/**
 	 * @param length	Lunghezza del rumore
 	 * @param snr	Rapporto segnale-rumore
 	 */
 	public Noise(int length, double snr) {
-		this.randomGenerator = new Random();
+		Random random = new Random();
 		
-		this.standardDeviation = Math.sqrt((1 / snr) / 2);
+		double standardDeviation = Math.sqrt((1 / snr) / 2);
 		
 		super.initialize(new ComplexStream(() -> {
-			Supplier<Double> r = () -> this.randomGenerator.nextGaussian() * this.standardDeviation;
+			Supplier<Double> r = () -> random.nextGaussian() * standardDeviation;
 			return new CartesianComplex(r.get(), r.get());
 		}, length));
 	}

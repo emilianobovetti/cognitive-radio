@@ -2,6 +2,7 @@ package it.uniroma3.sdr.system;
 
 import java.util.List;
 
+import it.uniroma3.sdr.Main;
 import it.uniroma3.sdr.processing.ThresholdDetector;
 import it.uniroma3.sdr.processing.ThresholdTester;
 import it.uniroma3.sdr.signal.DurableSignal;
@@ -51,21 +52,27 @@ public class EnergyDetector {
 	 */
 	public void run() {
 		String[] signals = Settings.getArrayProperty("signal.files.name");
-		
-		for (String s : signals) {
-			this.log("Processing signal '" + s + "'");
-			
-			this.findThreshold(s);
-			
-			this.log("Signal energy = " + String.format("%.12f", this.currentSignal.energy()));
-			this.log("Signal snr in db = " + String.format("%.12f", this.currentSignal.snrDb()));
-			this.log("Threshold = " + String.format("%.12f", this.currentThreshold));
-			
-			this.testThreshold();
-			
-			this.log("Detection Percentage = " + String.format("%.3f", this.detectionPercentage));
-			this.log("");
-		}
+
+		// Main
+		//for (String s : signals) this.processSignal(s);
+
+		// benchmarking
+		this.processSignal(signals[0]);
+	}
+
+	public void processSignal(String signalFileName) {
+		this.log("Processing signal '" + signalFileName + "'");
+
+		this.findThreshold(signalFileName);
+
+		this.log("Signal energy = " + String.format("%.12f", this.currentSignal.energy()));
+		this.log("Signal snr in db = " + String.format("%.12f", this.currentSignal.snrDb()));
+		this.log("Threshold = " + String.format("%.12f", this.currentThreshold));
+
+		this.testThreshold();
+
+		this.log("Detection Percentage = " + String.format("%.3f", this.detectionPercentage));
+		this.log("");
 	}
 
 	/**

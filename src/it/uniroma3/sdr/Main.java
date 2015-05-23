@@ -15,6 +15,10 @@ public class Main {
 
 		long end = System.nanoTime();
 		double elapsed = (end - start) / 1000000000.0;
-		EnergyDetector.getInstance().log("Elapsed = " + elapsed + " seconds");
+
+		// log
+		EnergyDetector detector = EnergyDetector.getInstance();
+		StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+		detector.log(stackTraceElements[2] + " elapsed in " + elapsed + " seconds");
 	}
 }

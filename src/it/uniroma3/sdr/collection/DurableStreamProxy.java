@@ -1,6 +1,7 @@
 package it.uniroma3.sdr.collection;
 
 import java.util.ArrayDeque;
+import java.util.Collection;
 import java.util.Queue;
 import java.util.stream.Stream;
 
@@ -22,14 +23,13 @@ public class DurableStreamProxy<T> {
 
     private Stream<T> stream;
 
-    private Queue<T> collection;
+    private Collection<T> collection;
 
 	/**
 	 * Crea un nuovo stream durevole a partire da un normale Stream
 	 *
 	 * @param stream	Stream in input
 	 */
-	// STABLE!
     public DurableStreamProxy(Stream<T> stream) {
         this.collection = new ArrayDeque<>();
 

@@ -61,7 +61,11 @@ public class SignalReader {
 	/**
 	 * @return	Segnale durevole letto dal file di input
 	 */
-	public DurableSignal readDurableSignal() {
+	public DurableSignal readEagerDurableSignal() {
+		return new DurableSignal(this.stream().toArray(Complex[]::new));
+	}
+
+	public DurableSignal readLazyDurableSignal() {
 		return new DurableSignal(this.stream());
 	}
 	

@@ -7,6 +7,10 @@ import it.uniroma3.sdr.math.Variance;
 import it.uniroma3.sdr.signal.Noise;
 import it.uniroma3.sdr.signal.Signal;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.stream.Stream;
 
 /**
@@ -44,7 +48,8 @@ public class ThresholdDetector {
 	 */
 	// STABLE
 	public double evaluate(Signal signal) {
-		Double[] noisesEnergy = this.noisesEnergy(signal).toArray(Double[]::new);
+		Double[] noisesEnergy = this.noisesEnergy(signal)
+				.toArray(Double[]::new);
 
 		double mean = Mean.evaluate(noisesEnergy);
 		return mean + Math.sqrt(2.0 * Variance.evaluate(noisesEnergy, mean)) *
@@ -65,7 +70,6 @@ public class ThresholdDetector {
 
 	private Stream<Double> noisesEnergy(Signal signal) {
 		return (new NoiseGenerator(signal)).generateStream(this.noiseLength)
-				//.parallel()
 				.limit(this.testsNumber)
 				.map(Signal::energy);
 	}

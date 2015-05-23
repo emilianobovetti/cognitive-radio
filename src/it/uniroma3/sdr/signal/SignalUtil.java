@@ -2,6 +2,7 @@ package it.uniroma3.sdr.signal;
 
 import it.uniroma3.sdr.math.complex.Complex;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class SignalUtil {
 	 * @param length	Lunghezza del segnale
 	 * @return	Lista di segnali
 	 */
+	/*
 	public List<DurableSignal> split(int length) {
 		Iterator<Complex> iterator = this.stream.iterator();
 		List<DurableSignal> signals = new LinkedList<>();
@@ -46,6 +48,21 @@ public class SignalUtil {
 			index++;
 		}
 		signals.add(new DurableSignal(samples));
+		return signals;
+	}
+	*/
+
+	public List<Signal> split(int length) {
+		List<Signal> signals = new LinkedList<>();
+		Stream<Complex> stream = this.stream;
+		while (true) {
+			signals.add(new GenericSignal(stream.limit(length)));
+			try {
+				stream = stream.skip(length);
+			} catch (IllegalStateException e) {
+				break;
+			}
+		}
 		return signals;
 	}
 }

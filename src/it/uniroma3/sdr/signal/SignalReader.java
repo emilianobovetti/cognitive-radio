@@ -84,7 +84,7 @@ public class SignalReader {
 	 * 	per cui e' probabile che abbia lunghezza minore
 	 * @return	Lista di segnali letti dal file di input
 	 */
-	public List<DurableSignal> readSignals(int signalLength) {
+	public List<Signal> readSignals(int signalLength) {
 		SignalUtil util = new SignalUtil(this.stream());
 		return util.split(signalLength);
 	}

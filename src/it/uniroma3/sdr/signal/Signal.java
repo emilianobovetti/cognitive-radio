@@ -62,16 +62,13 @@ public abstract class Signal {
 
 		// Pair.first = stream length
 		// Pair.second = data
-		Pair<Integer, Double> result = this.stream()
+		Optional<Pair<Integer, Double>> result = this.stream()
 				.map(x -> new Pair<>(1, x.modulus2()))
-				.reduce(new Pair<>(0, 0.0),
-						(a, b) -> new Pair<>(a.first + b.first, a.second + b.second));
+				.reduce((a, b) -> new Pair<>(a.first + b.first, a.second + b.second));
 
-		if (result.first == 0) {
-			throw new SignalStateException("Energy does not exist on empty signal");
-		}
+		result.orElseThrow(() ->  new SignalStateException("Energy does not exist on empty signal"));
 
-		this.energy = Optional.of(result.second / result.first);
+		this.energy = Optional.of(result.get().second / result.get().first);
 		return this.energy.get();
 	}
 

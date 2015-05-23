@@ -104,7 +104,7 @@ public class EnergyDetector {
 		ThresholdTester tester = new ThresholdTester(this.currentThreshold);
 		
 		SignalUtil util = new SignalUtil(this.currentSignal.stream());
-		List<DurableSignal> signals = util.split(1000);
+		List<Signal> signals = util.split(1000);
 		
 		this.detectionPercentage = tester.evaluateOnSignals(signals);
 	}

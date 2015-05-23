@@ -33,10 +33,9 @@ public class DurableStreamProxy<T> {
     public DurableStreamProxy(Stream<T> stream) {
         this.collection = new ArrayDeque<>();
 
-		this.stream = stream.map(x -> {
+		this.stream = stream.peek(x -> {
 			//Runnable r = () -> this.collection.add(x);	r.run();
 			this.collection.add(x);
-			return x;
 		});
     }
 

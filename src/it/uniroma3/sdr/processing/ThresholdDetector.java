@@ -1,5 +1,6 @@
 package it.uniroma3.sdr.processing;
 
+import it.uniroma3.sdr.collection.DurableStreamProxy;
 import it.uniroma3.sdr.math.ErfInv;
 import it.uniroma3.sdr.math.Mean;
 import it.uniroma3.sdr.math.Variance;

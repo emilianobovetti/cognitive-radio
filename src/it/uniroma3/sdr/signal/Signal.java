@@ -1,14 +1,10 @@
 package it.uniroma3.sdr.signal;
 
-import it.uniroma3.sdr.Main;
 import it.uniroma3.sdr.collection.Pair;
 import it.uniroma3.sdr.collection.complex.ComplexCollection;
 import it.uniroma3.sdr.math.complex.Complex;
 
-import java.util.Iterator;
 import java.util.Optional;
-import java.util.Spliterator;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 /**
@@ -59,24 +55,6 @@ public abstract class Signal {
 	 * 
 	 * @return	L'energia del segnale
 	 */
-	/*
-	public double energy() {
-		if (this.energy.isPresent()) {
-			return this.energy.get();
-		}
-
-		int length = 0;
-		double sum = 0;
-		Iterator<Complex> iterator = this.stream().iterator();
-		while (iterator.hasNext()) {
-			length++;
-			sum += iterator.next().modulus2();
-		}
-
-		this.energy = Optional.of(sum / length);
-		return this.energy.get();
-	}
-	*/
 	public double energy() {
 		if (this.energy.isPresent()) {
 			return this.energy.get();

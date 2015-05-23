@@ -10,9 +10,6 @@ public class Main {
 	
 	public static void main(String[] args) {
 		benchmark(() -> EnergyDetector.getInstance().run());
-
-		benchmark(() -> RealParser.parse("-4.7455e-005"));
-		benchmark(() -> Double.parseDouble("-4.7455e-005"));
 	}
 
 	public static void benchmark(Runnable r) {

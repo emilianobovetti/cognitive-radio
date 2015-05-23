@@ -40,32 +40,6 @@ public class DurableStreamProxy<T> {
 		});
     }
 
-	/*
-	// TESTING
-	private static final int BUFFER_LENGTH = 100;
-	private T[] buffer;
-	private int bufferIndex = 0;
-	public DurableStreamProxy(Stream<T> stream) {
-		this.collection = new ArrayDeque<>(1000);
-		this.buffer = (T[]) new Object[BUFFER_LENGTH];
-
-		Runnable emptyBuffer = () -> this.collection.addAll(Arrays.asList(this.buffer));
-
-		this.stream = stream.map(x -> {
-			this.buffer[this.bufferIndex] = x;
-			this.bufferIndex++;
-
-			if (this.bufferIndex >= BUFFER_LENGTH) {
-				emptyBuffer.run();
-				this.buffer = (T[]) new Object[BUFFER_LENGTH];
-				this.bufferIndex = 0;
-			}
-
-			return x;
-		});
-	}
-	*/
-
 	/**
 	 * @return	Stream<T>
 	 */

@@ -52,7 +52,6 @@ public class ThresholdDetector {
 	}
 	*/
 
-	//TESTING
 	public double evaluate(Signal signal) {
 		Stream<Double> noisesEnergy = this.noisesEnergy(signal);
 		DurableStreamProxy<Double> durableEnergies = new DurableStreamProxy<>(noisesEnergy, this.testsNumber);

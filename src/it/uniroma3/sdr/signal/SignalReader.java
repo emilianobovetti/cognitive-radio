@@ -39,7 +39,6 @@ public class SignalReader {
 	 */
 	private Stream<Complex> stream() {
 		try {
-			//return Files.newBufferedReader(Paths.get(this.filePath, this.fileName)).lines()
 			return Files.lines(Paths.get(this.filePath, this.fileName))
 					.map(x -> {
 						double[] split = RealParser.parseMany(x, 2);

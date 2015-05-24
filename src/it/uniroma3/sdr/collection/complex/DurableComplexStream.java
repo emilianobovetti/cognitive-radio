@@ -28,27 +28,21 @@ public class DurableComplexStream implements ComplexCollection {
 	
 	/**
 	 * @param stream	Lo stream di complessi
+	 * @param expectedLength	Dimensione attesa dello stream.
+	 *                          Questa dimensione non vincola la dimensione massima
 	 */
-	public DurableComplexStream(Stream<Complex> stream) {
-		this.collection = new DurableStreamProxy<>(stream);
+	public DurableComplexStream(Stream<Complex> stream, int expectedLength) {
+		this.collection = new DurableStreamProxy<>(stream, expectedLength);
 	}
 
-	/**
-	 * @param stream	Lo stream di complessi
-	 * @param maxLength	Lunghezza massima della collezione
-	 */
-	public DurableComplexStream(Stream<Complex> stream, long maxLength) {
-		this(stream.limit(maxLength));
-	}
-	
 	/**
 	 * Vedi ComplexStream
 	 * 
 	 * @param generator	Il generatore di numeri complessi
 	 * @param maxLength	Lunghezza massima della collezione
 	 */
-	public DurableComplexStream(Supplier<Complex> generator, long maxLength) {
-		this(Stream.generate(generator).limit(maxLength));
+	public DurableComplexStream(Supplier<Complex> generator, int maxLength) {
+		this(Stream.generate(generator).limit(maxLength), maxLength);
 	}
 
 	public Stream<Complex> stream() {

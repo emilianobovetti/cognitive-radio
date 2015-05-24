@@ -55,7 +55,7 @@ public class ThresholdDetector {
 	//TESTING
 	public double evaluate(Signal signal) {
 		Stream<Double> noisesEnergy = this.noisesEnergy(signal);
-		DurableStreamProxy<Double> durableEnergies = new DurableStreamProxy<>(noisesEnergy);
+		DurableStreamProxy<Double> durableEnergies = new DurableStreamProxy<>(noisesEnergy, this.testsNumber);
 
 		double mean = Mean.evaluate(durableEnergies.stream());
 		return mean + Math.sqrt(2.0 * Variance.evaluate(durableEnergies.stream(), mean)) *

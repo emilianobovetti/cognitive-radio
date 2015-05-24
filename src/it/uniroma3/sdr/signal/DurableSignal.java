@@ -34,20 +34,13 @@ public class DurableSignal extends Signal {
 
 	/**
 	 * @param stream	Stream di dati del segnale
+	 * @param expectedLength	Lunghezza attesa dello stream
 	 */
-	public DurableSignal(Stream<Complex> stream) {
-		super.initialize(new DurableComplexStream(stream));
+	public DurableSignal(Stream<Complex> stream, int expectedLength) {
+		super.initialize(new DurableComplexStream(stream, expectedLength));
 	}
 
 	public DurableSignal(Collection<Complex> collection) {
 		super.initialize(new GenericComplexCollection(collection));
-	}
-	
-	/**
-	 * @param stream	Stream di dati del segnale
-	 * @param maxSampleLength	Numero massimo di campioni del segnale
-	 */
-	public DurableSignal(Stream<Complex> stream, long maxSampleLength) {
-		super.initialize(new DurableComplexStream(stream, maxSampleLength));
 	}
 }

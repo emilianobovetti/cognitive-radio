@@ -69,7 +69,7 @@ public class SignalReader {
 	}
 
 	public DurableSignal readLazyDurableSignal() {
-		return new DurableSignal(this.stream());
+		return new DurableSignal(this.stream(), 10_000);
 	}
 	
 	/**

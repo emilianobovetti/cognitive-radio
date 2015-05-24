@@ -17,9 +17,9 @@ public class DurableComplexStreamTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		empty = new DurableComplexStream(Stream.empty());
+		empty = new DurableComplexStream(Stream.empty(), 10);
 		
-		one = new DurableComplexStream(Stream.of(new CartesianComplex(1, 0)));
+		one = new DurableComplexStream(Stream.of(new CartesianComplex(1, 0)), 10);
 	}
 
 	@Test

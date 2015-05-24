@@ -28,9 +28,10 @@ public class DurableStreamProxy<T> {
 	 * Crea un nuovo stream durevole a partire da un normale Stream
 	 *
 	 * @param stream	Stream in input
+	 * @param expectedLength	Dimensione attesa della collezione
 	 */
-    public DurableStreamProxy(Stream<T> stream) {
-        this.collection = new ArrayDeque<>();
+    public DurableStreamProxy(Stream<T> stream, int expectedLength) {
+        this.collection = new ArrayDeque<>(expectedLength);
 
 		this.stream = stream.peek(this.collection::add);
     }

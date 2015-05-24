@@ -1,16 +1,12 @@
 package it.uniroma3.sdr;
 
-import it.uniroma3.sdr.math.Real;
-import it.uniroma3.sdr.math.RealParser;
 import it.uniroma3.sdr.system.EnergyDetector;
-
-import java.util.Scanner;
 
 public class Main {
 	
 	public static void main(String[] args) {
 		EnergyDetector detector = EnergyDetector.getInstance();
-		benchmark(() -> detector.run());
+		benchmark(detector::run);
 	}
 
 	public static void benchmark(Runnable r) {
@@ -24,6 +20,6 @@ public class Main {
 		// log
 		EnergyDetector detector = EnergyDetector.getInstance();
 		StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
-		detector.log(stackTraceElements[2] + " elapsed in " + String.format("%.12f", elapsed) + " seconds");
+		detector.log(stackTraceElements[2] + " elapsed in " + String.format("%.8f", elapsed) + " seconds");
 	}
 }

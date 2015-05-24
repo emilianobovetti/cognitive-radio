@@ -41,6 +41,7 @@ public class ThresholdDetector {
 	 * 	all'energia di questo segnale verranno generati i rumori
 	 * @return	Stima dell'energia di soglia
 	 */
+	/*
 	public double evaluate(Signal signal) {
 		Double[] noisesEnergy = this.noisesEnergy(signal)
 				.toArray(Double[]::new);
@@ -49,8 +50,8 @@ public class ThresholdDetector {
 		return mean + Math.sqrt(2.0 * Variance.evaluate(noisesEnergy, mean)) *
 					ErfInv.evaluate(1.0 - 2.0 * this.probabilityFalseAlarm);
 	}
+	*/
 
-	/*
 	//TESTING
 	public double evaluate(Signal signal) {
 		Stream<Double> noisesEnergy = this.noisesEnergy(signal);
@@ -60,7 +61,6 @@ public class ThresholdDetector {
 		return mean + Math.sqrt(2.0 * Variance.evaluate(durableEnergies.stream(), mean)) *
 				ErfInv.evaluate(1.0 - 2.0 * this.probabilityFalseAlarm);
 	}
-	*/
 
 	private Stream<Double> noisesEnergy(Signal signal) {
 		return (new NoiseGenerator(signal)).generateStream(this.noiseLength)

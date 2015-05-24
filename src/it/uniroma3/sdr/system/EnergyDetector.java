@@ -69,7 +69,7 @@ public class EnergyDetector {
 
 		this.testThreshold();
 
-		this.log("Detection Percentage = " + String.format("%.3f", this.detectionPercentage));
+		this.log("Detection percentage = " + String.format("%.3f", this.detectionPercentage));
 		this.log("");
 	}
 

@@ -61,7 +61,7 @@ public abstract class Signal {
 		}
 
 		// Pair.first = stream length
-		// Pair.second = data
+		// Pair.second = mod^2
 		Optional<Pair<Integer, Double>> result = this.stream()
 				.map(x -> new Pair<>(1, x.modulus2()))
 				.reduce((a, b) -> new Pair<>(a.first + b.first, a.second + b.second));
